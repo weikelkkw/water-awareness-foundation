@@ -1,0 +1,203 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --ocean: 11 61 92;
+    --cyan: 0 180 216;
+    --amber: 245 158 11;
+    --canvas: 250 251 252;
+    --ink: 26 26 46;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-canvas text-ink font-sans;
+    font-feature-settings: "ss01", "cv11";
+  }
+
+  ::selection {
+    background: rgba(0, 180, 216, 0.25);
+    color: #062642;
+  }
+
+  /* Editorial display type */
+  .display {
+    @apply font-serif;
+    font-feature-settings: "lnum", "ss01";
+  }
+
+  /* Small caps section labels */
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.18em] text-cyan-500;
+  }
+
+  .eyebrow-muted {
+    @apply text-xs font-semibold uppercase tracking-[0.18em] text-muted;
+  }
+
+  /* Pull-quote */
+  .pullquote {
+    @apply font-serif text-2xl md:text-3xl leading-snug text-ocean-700 border-l-2 border-cyan-400 pl-6 my-10;
+  }
+
+  /* Editorial prose tweaks */
+  .prose-editorial {
+    @apply prose prose-lg max-w-none;
+  }
+  /* Drop-cap on the first paragraph after the article header.
+     Brass-tinted, large, with a subtle right margin and shadow. */
+  @media (min-width: 768px) {
+    .prose-editorial > p:first-of-type::first-letter {
+      font-family: var(--font-fraunces), Georgia, serif;
+      color: #A88947;
+      font-size: 5.5rem;
+      line-height: 0.88;
+      float: left;
+      padding: 0.45rem 1rem 0 0;
+      font-weight: 500;
+      background: linear-gradient(135deg, #C9A663 0%, #A88947 60%, #7D6531 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  }
+  .prose-editorial :where(p, ul, ol, blockquote) {
+    @apply text-ink/85 leading-[1.75];
+  }
+  /* H2s with a brass droplet ornament above + brass underline */
+  .prose-editorial :where(h2) {
+    @apply font-serif text-3xl md:text-4xl mt-20 mb-6 text-ocean-700 tracking-tight relative pb-3;
+  }
+  /* Brass droplet ornament floating above each H2 */
+  .prose-editorial :where(h2)::before {
+    content: "";
+    position: absolute;
+    top: -2.5rem;
+    left: 0;
+    width: 14px;
+    height: 14px;
+    border-radius: 9999px;
+    background: radial-gradient(
+      circle at 32% 30%,
+      rgba(255, 255, 255, 0.95) 0%,
+      rgba(232, 212, 158, 0.85) 30%,
+      rgba(201, 166, 99, 0.9) 60%,
+      rgba(168, 137, 71, 1) 100%
+    );
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.7),
+      0 2px 6px rgba(201, 166, 99, 0.35);
+  }
+  .prose-editorial :where(h2)::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 4rem;
+    height: 2px;
+    background: linear-gradient(90deg, #C9A663, rgba(201, 166, 99, 0));
+  }
+  /* Suppress the droplet on the very first H2 to avoid a stranded ornament */
+  .prose-editorial :where(h2:first-child)::before {
+    display: none;
+  }
+  .prose-editorial :where(h3) {
+    @apply font-serif text-2xl mt-12 mb-3 text-ocean-700;
+  }
+  .prose-editorial :where(a) {
+    @apply text-cyan-600 underline-offset-4 hover:underline;
+  }
+  /* Blockquotes — large italic editorial pull */
+  .prose-editorial :where(blockquote) {
+    @apply not-italic font-serif text-2xl md:text-3xl italic text-ocean-700 my-12 px-8 py-6 relative;
+    background: linear-gradient(90deg, rgba(0, 180, 216, 0.05), transparent);
+    border-left: 3px solid #C9A663;
+  }
+  .prose-editorial :where(strong) {
+    @apply text-ocean-700;
+  }
+  .prose-editorial :where(code) {
+    @apply text-ocean-700 bg-ocean-50 px-1.5 py-0.5 rounded text-[0.9em];
+  }
+  /* Tables — styled like editorial data tables */
+  .prose-editorial :where(table) {
+    @apply my-10 w-full border-collapse;
+  }
+  .prose-editorial :where(thead) {
+    @apply bg-ocean-50;
+  }
+  .prose-editorial :where(th) {
+    @apply text-left px-4 py-3 text-sm font-semibold text-ocean-700 border-b border-ocean-100;
+  }
+  .prose-editorial :where(td) {
+    @apply px-4 py-3 text-[15px] text-ink/85 border-b border-line;
+  }
+  /* Lists — softer bullet, brass accent */
+  .prose-editorial :where(ul > li)::marker {
+    color: #C9A663;
+  }
+  .prose-editorial :where(ol > li)::marker {
+    color: #0B3D5C;
+    font-weight: 600;
+  }
+  /* hr — decorative brass divider */
+  .prose-editorial :where(hr) {
+    @apply my-16 border-0 h-px relative;
+    background: linear-gradient(90deg, transparent, #C9A663, transparent);
+  }
+
+  /* Key-takeaways callout (used in MDX) — apply `not-prose` on the element
+     to escape prose-editorial styling on child tags. */
+  .callout {
+    @apply my-10 rounded-2xl border border-cyan-100 bg-gradient-to-br from-cyan-50 to-white p-6 md:p-8 shadow-soft;
+  }
+  .callout-label {
+    @apply eyebrow mb-3 block;
+  }
+  .callout h4 {
+    @apply font-serif text-xl text-ocean-700 mb-3;
+  }
+  .callout ul {
+    @apply list-none p-0 m-0 space-y-2;
+  }
+  .callout ul li {
+    @apply pl-6 relative text-ink/90;
+  }
+  .callout ul li::before {
+    content: "";
+    @apply absolute left-0 top-2.5 w-2 h-2 rounded-full bg-cyan-400;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+  .bg-grid-faint {
+    background-image:
+      linear-gradient(rgba(11, 61, 92, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(11, 61, 92, 0.04) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+  .glass {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: saturate(180%) blur(18px);
+    -webkit-backdrop-filter: saturate(180%) blur(18px);
+  }
+  .glass-dark {
+    background: rgba(11, 61, 92, 0.55);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+  }
+}
