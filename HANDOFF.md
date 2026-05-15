@@ -136,7 +136,7 @@ This is genuinely the biggest gap. Without it, the ZIP hero — the marquee feat
 ## What is **honest fakery** to address before launch
 
 1. **Author bylines.** Currently every article reads "Reviewed by Dr. K. Mendez, Environmental Health." This is a placeholder credential and should be replaced with a real reviewer, an `/authors` page with real bios, or removed.
-2. **`hello@wateraware.org`, `corrections@wateraware.org`.** Both are referenced throughout the site. The domain is not registered and these inboxes do not exist.
+2. **`hello@waterawarenessfoundation.com`, `corrections@waterawarenessfoundation.com`.** Both are referenced throughout the site. The domain is not registered and these inboxes do not exist.
 3. **Tribute and team identity.** `/about` openly says the team is anonymous "for the early period." That's a choice you can make; just be deliberate about it. If you'd rather name a founder, edit `app/about/page.tsx`.
 4. **Funding transparency.** The about page promises an annual transparency report. Make one.
 

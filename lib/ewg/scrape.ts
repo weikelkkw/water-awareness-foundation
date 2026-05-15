@@ -32,7 +32,7 @@
 
 const BASE = "https://www.ewg.org/tapwater";
 const USER_AGENT =
-  "WaterAwarenessFoundation/0.1 (educational research; contact@wateraware.org)";
+  "WaterAwarenessFoundation/0.1 (educational research; contact@waterawarenessfoundation.com)";
 
 export interface EwgUtility {
   pwsid: string;

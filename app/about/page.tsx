@@ -148,8 +148,8 @@ export default function AboutPage() {
           <p>
             If you spot an error — a misquoted limit, a stale citation, a
             misleading framing — write to{" "}
-            <a href="mailto:corrections@wateraware.org">
-              corrections@wateraware.org
+            <a href="mailto:corrections@waterawarenessfoundation.com">
+              corrections@waterawarenessfoundation.com
             </a>
             . We publish every correction we make at{" "}
             <Link href="/methodology#corrections">/methodology#corrections</Link>{" "}

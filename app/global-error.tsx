@@ -84,8 +84,8 @@ export default function GlobalError({
             }}
           >
             Our team has been notified. Try reloading; if it keeps happening,
-            email <a style={{ color: "#3FCBEA" }} href="mailto:hello@wateraware.org">
-              hello@wateraware.org
+            email <a style={{ color: "#3FCBEA" }} href="mailto:hello@waterawarenessfoundation.com">
+              hello@waterawarenessfoundation.com
             </a>{" "}
             and we&apos;ll dig in.
           </p>

@@ -11,7 +11,7 @@ export const resend = apiKey ? new Resend(apiKey) : null;
 
 export const FROM_NEWSLETTER =
   process.env.RESEND_FROM_NEWSLETTER ??
-  "Water Awareness Foundation <newsletter@wateraware.org>";
+  "Water Awareness Foundation <newsletter@waterawarenessfoundation.com>";
 
 export function emailEnabled() {
   return !!resend;
@@ -69,13 +69,13 @@ function welcomeHtml(zip?: string) {
         </td></tr>
         <tr><td>${zipLine}</td></tr>
         <tr><td style="padding:24px 0 16px 0;">
-          <a href="https://wateraware.org/report" style="display:inline-block;padding:14px 24px;background:#0B3D5C;color:#fff;text-decoration:none;border-radius:12px;font-size:15px;font-weight:500;">Check your tap water</a>
+          <a href="https://waterawarenessfoundation.com/report" style="display:inline-block;padding:14px 24px;background:#0B3D5C;color:#fff;text-decoration:none;border-radius:12px;font-size:15px;font-weight:500;">Check your tap water</a>
         </td></tr>
         <tr><td style="font-size:14px;line-height:1.6;color:#5C6470;border-top:1px solid #E5E8EC;padding-top:24px;margin-top:24px;">
           The foundation is non-commercial. We don't sell products, we don't take affiliate revenue, and we don't share your email. If this ever stops being useful, unsubscribe at the bottom of any issue — no questions asked.
         </td></tr>
         <tr><td style="font-size:12px;color:#A8B0BB;padding-top:24px;">
-          Water Awareness Foundation · An independent educational foundation · wateraware.org
+          Water Awareness Foundation · An independent educational foundation · waterawarenessfoundation.com
         </td></tr>
       </table>
     </td></tr>
@@ -88,7 +88,7 @@ function welcomeText(zip?: string) {
 
 You'll receive one calm, sourced email every Sunday — new contaminants explained, policy updates, regional alerts.${zip ? `\n\nWe'll tailor regional alerts to ZIP code ${zip}.` : ""}
 
-Check your tap water: https://wateraware.org/report
+Check your tap water: https://waterawarenessfoundation.com/report
 
 The foundation is non-commercial. We don't sell products, we don't take affiliate revenue, and we don't share your email. Unsubscribe anytime — link is at the bottom of every email.
 

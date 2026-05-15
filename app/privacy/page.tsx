@@ -67,8 +67,8 @@ export default function PrivacyPage() {
             <li>
               You can request deletion of your subscriber record at any time by
               emailing{" "}
-              <a href="mailto:privacy@wateraware.org">
-                privacy@wateraware.org
+              <a href="mailto:privacy@waterawarenessfoundation.com">
+                privacy@waterawarenessfoundation.com
               </a>
               .
             </li>
@@ -167,7 +167,7 @@ export default function PrivacyPage() {
           </ul>
           <p>
             To exercise any of these rights, email{" "}
-            <a href="mailto:privacy@wateraware.org">privacy@wateraware.org</a>.
+            <a href="mailto:privacy@waterawarenessfoundation.com">privacy@waterawarenessfoundation.com</a>.
             We will respond within 30 days, typically much faster.
           </p>
 
@@ -176,7 +176,7 @@ export default function PrivacyPage() {
             The site is intended for a general adult audience. We do not knowingly
             collect data from anyone under 13. If you believe we have, contact us
             at{" "}
-            <a href="mailto:privacy@wateraware.org">privacy@wateraware.org</a>{" "}
+            <a href="mailto:privacy@waterawarenessfoundation.com">privacy@waterawarenessfoundation.com</a>{" "}
             and we will delete it.
           </p>
 
@@ -189,7 +189,7 @@ export default function PrivacyPage() {
 
           <h2>Contact</h2>
           <p>
-            Email <a href="mailto:privacy@wateraware.org">privacy@wateraware.org</a>{" "}
+            Email <a href="mailto:privacy@waterawarenessfoundation.com">privacy@waterawarenessfoundation.com</a>{" "}
             with any privacy question or request. For general contact, see{" "}
             <Link href="/about">/about</Link>.
           </p>

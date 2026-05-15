@@ -81,7 +81,7 @@ export default function PressPage() {
               <Eyebrow>Press contact</Eyebrow>
             </div>
             <h2 className="display text-3xl text-ocean-700 mb-3">
-              Email <a href="mailto:press@wateraware.org" className="text-cyan-600 hover:underline">press@wateraware.org</a>
+              Email <a href="mailto:press@waterawarenessfoundation.com" className="text-cyan-600 hover:underline">press@waterawarenessfoundation.com</a>
             </h2>
             <p className="text-ink/75 leading-relaxed">
               Include your outlet, topic, and deadline. We respond within 24
@@ -141,7 +141,7 @@ export default function PressPage() {
               Articles may be cited as &quot;Water Awareness Foundation&quot; with a link
               to the source page. For long-form attribution: &quot;Water Awareness
               Foundation, an independent non-commercial educational
-              organization (wateraware.org).&quot;
+              organization (waterawarenessfoundation.com).&quot;
             </p>
 
             <h2>Boilerplate</h2>
@@ -152,7 +152,7 @@ export default function PressPage() {
               no affiliate revenue, and no funding from utilities, bottled
               water companies, or filtration manufacturers. Editorial work is
               reviewed by the foundation&apos;s internal review board prior to
-              publication. wateraware.org.
+              publication. waterawarenessfoundation.com.
             </blockquote>
           </div>
         </Container>

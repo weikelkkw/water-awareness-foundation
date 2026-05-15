@@ -37,8 +37,8 @@ export default function MethodologyPage() {
             from, how the Water Score is calculated, what the score does and
             doesn&apos;t measure, and the limits we openly acknowledge. If you
             spot a problem, write to{" "}
-            <a href="mailto:corrections@wateraware.org" className="text-cyan-300 hover:underline">
-              corrections@wateraware.org
+            <a href="mailto:corrections@waterawarenessfoundation.com" className="text-cyan-300 hover:underline">
+              corrections@waterawarenessfoundation.com
             </a>
             .
           </p>

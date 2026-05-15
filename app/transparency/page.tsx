@@ -128,8 +128,8 @@ export default function TransparencyPage() {
           <h2>Questions</h2>
           <p>
             Email{" "}
-            <a href="mailto:transparency@wateraware.org">
-              transparency@wateraware.org
+            <a href="mailto:transparency@waterawarenessfoundation.com">
+              transparency@waterawarenessfoundation.com
             </a>{" "}
             with any question about funding, governance, or editorial
             independence. We will respond and, where appropriate, update this

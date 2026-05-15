@@ -12,16 +12,16 @@ has a status; check them off as you go.
       (c) explicit attorney-greenlit decision to continue scraping in the
       educational fair-use envelope. See `scripts/ewg-partnership-email.md`
       for the outreach template.
-- [ ] **Domain `wateraware.org` registered.** Configure DNS to point at
+- [ ] **Domain `waterawarenessfoundation.com` registered.** Configure DNS to point at
       Vercel.
 - [ ] **Inboxes provisioned:**
-  - [ ] `hello@wateraware.org`
-  - [ ] `press@wateraware.org`
-  - [ ] `corrections@wateraware.org`
-  - [ ] `privacy@wateraware.org`
-  - [ ] `legal@wateraware.org`
-  - [ ] `transparency@wateraware.org`
-  - [ ] `newsletter@wateraware.org` (DKIM/SPF for Resend send)
+  - [ ] `hello@waterawarenessfoundation.com`
+  - [ ] `press@waterawarenessfoundation.com`
+  - [ ] `corrections@waterawarenessfoundation.com`
+  - [ ] `privacy@waterawarenessfoundation.com`
+  - [ ] `legal@waterawarenessfoundation.com`
+  - [ ] `transparency@waterawarenessfoundation.com`
+  - [ ] `newsletter@waterawarenessfoundation.com` (DKIM/SPF for Resend send)
 - [ ] **Real reviewer attribution.** Either commission a real Environmental
       Health PhD/MPH/MD reviewer and update `lib/authors.ts`, or keep the
       "Foundation Review Board" framing and clearly explain on `/authors`.
@@ -83,7 +83,7 @@ has a status; check them off as you go.
 ## TIER 4 — LAUNCH OPS
 
 - [ ] **Submit `sitemap.xml`** to Google Search Console (URL:
-      `https://wateraware.org/sitemap.xml`).
+      `https://waterawarenessfoundation.com/sitemap.xml`).
 - [ ] **Verify ownership** of the domain in Search Console + Bing
       Webmaster Tools.
 - [ ] **Press list compiled.** Target outlets: NYT Climate, Grist,

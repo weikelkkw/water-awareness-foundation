@@ -45,7 +45,7 @@ export default function TermsPage() {
           <h2>About the foundation</h2>
           <p>
             The Water Awareness Foundation (&quot;we,&quot; &quot;us,&quot; the
-            &quot;Foundation&quot;) operates wateraware.org as a non-commercial,
+            &quot;Foundation&quot;) operates waterawarenessfoundation.com as a non-commercial,
             educational resource on U.S. drinking water. By using the site, you
             agree to the terms below.
           </p>
@@ -167,7 +167,7 @@ export default function TermsPage() {
           <p>
             For permission requests, licensing questions, or legal correspondence,
             email{" "}
-            <a href="mailto:legal@wateraware.org">legal@wateraware.org</a>. For
+            <a href="mailto:legal@waterawarenessfoundation.com">legal@waterawarenessfoundation.com</a>. For
             corrections, see{" "}
             <Link href="/methodology#corrections">/methodology#corrections</Link>.
           </p>

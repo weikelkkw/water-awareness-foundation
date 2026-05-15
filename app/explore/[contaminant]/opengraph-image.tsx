@@ -132,7 +132,7 @@ export default async function OG({
               color: "#D9BB7E",
             }}
           >
-            wateraware.org
+            waterawarenessfoundation.com
           </div>
         </div>
       </div>

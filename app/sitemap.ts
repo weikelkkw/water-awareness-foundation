@@ -3,7 +3,7 @@ import { CONTAMINANTS } from "@/lib/contaminants";
 import { getAllSlugs } from "@/lib/content/mdx";
 import { getAllNewsSlugs } from "@/lib/content/news";
 
-const BASE = process.env.NEXT_PUBLIC_SITE_URL || "https://wateraware.org";
+const BASE = process.env.NEXT_PUBLIC_SITE_URL || "https://waterawarenessfoundation.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date().toISOString();

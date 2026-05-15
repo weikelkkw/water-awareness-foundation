@@ -43,7 +43,7 @@ All optional. The app runs without any of them; you just lose the cache layer an
 
 | Variable | Purpose |
 |---|---|
-| `NEXT_PUBLIC_SITE_URL` | Used in sitemap, OG tags, and JSON-LD. Defaults to `https://wateraware.org`. |
+| `NEXT_PUBLIC_SITE_URL` | Used in sitemap, OG tags, and JSON-LD. Defaults to `https://waterawarenessfoundation.com`. |
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL for cache + newsletter. |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Public anon key. |
 | `SUPABASE_SERVICE_ROLE_KEY` | Service role key (server only). |
@@ -126,7 +126,7 @@ See **HANDOFF.md** for the full punch list. The TL;DR:
 
 Every numeric claim, regulatory limit, and health effect on the site traces to a primary source in `lib/sources.ts`. New claims require new citations. "Studies show" is not a citation.
 
-Corrections go to `corrections@wateraware.org` and are logged at `/methodology#corrections`.
+Corrections go to `corrections@waterawarenessfoundation.com` and are logged at `/methodology#corrections`.
 
 ---
 

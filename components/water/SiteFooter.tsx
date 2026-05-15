@@ -29,7 +29,7 @@ const COLUMNS = [
       { href: "/transparency", label: "Transparency" },
       { href: "/press", label: "Press" },
       { href: "/newsletter", label: "Newsletter" },
-      { href: "mailto:hello@wateraware.org", label: "Contact" },
+      { href: "mailto:hello@waterawarenessfoundation.com", label: "Contact" },
     ],
   },
 ];

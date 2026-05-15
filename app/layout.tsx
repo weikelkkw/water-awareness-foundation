@@ -17,7 +17,7 @@ const inter = Inter({
   display: "swap",
 });
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://wateraware.org";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://waterawarenessfoundation.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

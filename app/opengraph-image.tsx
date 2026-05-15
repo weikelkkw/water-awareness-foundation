@@ -119,7 +119,7 @@ export default async function OG() {
             color: "rgba(255,255,255,0.55)",
           }}
         >
-          wateraware.org
+          waterawarenessfoundation.com
         </div>
         <div
           style={{
