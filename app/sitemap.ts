@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { CONTAMINANTS } from "@/lib/contaminants";
 import { getAllSlugs } from "@/lib/content/mdx";
 import { getAllNewsSlugs } from "@/lib/content/news";
+import { STATES } from "@/lib/states";
 
 const BASE = process.env.NEXT_PUBLIC_SITE_URL || "https://waterawarenessfoundation.com";
 
@@ -16,11 +17,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/compare",
     "/learn",
     "/explore",
+    "/water",
     "/news",
     "/facts",
     "/authors",
     "/press",
     "/transparency",
+    "/donate",
+    "/search",
     "/privacy",
     "/terms",
   ].map((path) => ({
@@ -51,5 +55,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...fixed, ...contaminants, ...articles, ...news];
+  const states = STATES.map((s) => ({
+    url: `${BASE}/water/${s.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.8,
+  }));
+
+  return [...fixed, ...contaminants, ...articles, ...news, ...states];
 }

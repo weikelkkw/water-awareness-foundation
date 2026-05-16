@@ -514,6 +514,97 @@ export default function HomePage() {
       </Section>
 
       {/* ================================================================ */}
+      {/* STATE BROWSER — entry point into /water                          */}
+      {/* ================================================================ */}
+      <section className="relative bg-ocean-700 text-white py-24 md:py-32 overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div
+            className="absolute top-0 right-1/3 w-[60vw] h-[60vw] max-w-[800px] max-h-[800px] rounded-full blur-3xl opacity-25"
+            style={{
+              background:
+                "radial-gradient(circle at center, rgba(0,180,216,0.5), transparent 60%)",
+            }}
+          />
+          <div
+            className="absolute bottom-0 left-0 w-[40vw] h-[40vw] max-w-[600px] max-h-[600px] rounded-full blur-3xl opacity-20"
+            style={{
+              background:
+                "radial-gradient(circle at center, rgba(201,166,99,0.5), transparent 60%)",
+            }}
+          />
+          <div className="absolute inset-0 bg-grid-faint opacity-[0.06]" />
+        </div>
+        <Container className="relative">
+          <div className="grid md:grid-cols-12 gap-12 md:gap-16 items-end">
+            <Reveal className="md:col-span-5">
+              <div className="flex items-center gap-3 mb-5">
+                <span className="h-px w-12 bg-brass-400/70" />
+                <span className="text-xs uppercase tracking-[0.28em] text-brass-300 font-bold">
+                  Browse by state
+                </span>
+              </div>
+              <h2 className="display text-display-md text-white text-balance leading-[1.05] mb-6">
+                Every state has its
+                <em className="not-italic italic font-light text-cyan-300"> own water story.</em>
+              </h2>
+              <p className="text-lg text-white/75 leading-relaxed mb-8">
+                Fifty profiles, each with the source-water mix, the
+                contaminants state regulators flag most, the flagship
+                regional story, and the recent news.
+              </p>
+              <Link
+                href="/water"
+                className="inline-flex items-center gap-2 text-cyan-200 hover:text-white text-base font-medium group"
+              >
+                Browse all 50 states
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </Link>
+            </Reveal>
+            <div className="md:col-span-7">
+              <Reveal delay={120}>
+                <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 md:gap-2.5">
+                  {[
+                    "california",
+                    "texas",
+                    "florida",
+                    "new-york",
+                    "michigan",
+                    "illinois",
+                    "pennsylvania",
+                    "ohio",
+                    "north-carolina",
+                    "georgia",
+                    "new-jersey",
+                    "massachusetts",
+                  ].map((slug) => {
+                    const name = slug
+                      .split("-")
+                      .map((w) => w[0].toUpperCase() + w.slice(1))
+                      .join(" ");
+                    return (
+                      <Link
+                        key={slug}
+                        href={`/water/${slug}`}
+                        className="group flex items-center justify-between gap-2 px-4 py-3 rounded-xl bg-white/[0.05] border border-white/10 hover:bg-white/[0.10] hover:border-white/20 transition-all"
+                      >
+                        <span className="font-serif text-sm text-white group-hover:text-cyan-200 transition-colors truncate">
+                          {name}
+                        </span>
+                        <ArrowUpRight
+                          className="h-3.5 w-3.5 text-white/40 group-hover:text-cyan-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all flex-shrink-0"
+                          strokeWidth={2.5}
+                        />
+                      </Link>
+                    );
+                  })}
+                </div>
+              </Reveal>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* ================================================================ */}
       {/* LIBRARY TEASER — editorial image moment                          */}
       {/* ================================================================ */}
       <Section className="relative bg-gradient-to-b from-ocean-wash to-canvas overflow-hidden">

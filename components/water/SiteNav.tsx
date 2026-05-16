@@ -4,12 +4,14 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Droplet, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { SearchTrigger } from "./SearchTrigger";
 import { cn } from "@/lib/utils";
 
 const NAV = [
   { href: "/report", label: "Reports" },
   { href: "/learn", label: "Learn" },
   { href: "/explore", label: "Contaminants" },
+  { href: "/water", label: "States" },
   { href: "/news", label: "News" },
   { href: "/about", label: "About" },
 ];
@@ -64,10 +66,11 @@ export function SiteNav() {
             ))}
           </nav>
 
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-2">
+            <SearchTrigger variant="compact" />
             <Link
               href="/donate"
-              className="text-sm font-medium text-ink/70 hover:text-ocean-700 transition-colors"
+              className="text-sm font-medium text-ink/70 hover:text-ocean-700 transition-colors px-2"
             >
               Donate
             </Link>
@@ -76,14 +79,17 @@ export function SiteNav() {
             </Link>
           </div>
 
-          <button
-            type="button"
-            className="md:hidden inline-flex items-center justify-center h-10 w-10 rounded-lg text-ocean-700 hover:bg-ocean-50"
-            aria-label={open ? "Close menu" : "Open menu"}
-            onClick={() => setOpen((o) => !o)}
-          >
-            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
+          <div className="flex md:hidden items-center gap-1">
+            <SearchTrigger variant="compact" />
+            <button
+              type="button"
+              className="inline-flex items-center justify-center h-10 w-10 rounded-lg text-ocean-700 hover:bg-ocean-50"
+              aria-label={open ? "Close menu" : "Open menu"}
+              onClick={() => setOpen((o) => !o)}
+            >
+              {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
+          </div>
         </div>
       </div>
 

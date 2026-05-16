@@ -16,8 +16,10 @@ const COLUMNS = [
     links: [
       { href: "/learn", label: "Education library" },
       { href: "/explore", label: "Contaminant explorer" },
+      { href: "/water", label: "Browse by state" },
       { href: "/facts", label: "Water facts" },
       { href: "/news", label: "Water news" },
+      { href: "/search", label: "Search the site" },
     ],
   },
   {

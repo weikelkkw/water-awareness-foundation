@@ -3,6 +3,7 @@ import { Fraunces, Inter } from "next/font/google";
 import "./globals.css";
 import { SiteNav } from "@/components/water/SiteNav";
 import { SiteFooter } from "@/components/water/SiteFooter";
+import { SearchProvider } from "@/components/water/SearchProvider";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -98,6 +99,7 @@ export default function RootLayout({
           {children}
         </main>
         <SiteFooter />
+        <SearchProvider />
       </body>
     </html>
   );
