@@ -79,96 +79,75 @@ export default function HomePage() {
         <HeroAtmosphere />
 
         <Container className="relative">
-          <div className="grid lg:grid-cols-12 gap-12 items-center">
-            <div className="lg:col-span-7 text-white">
-              <Reveal>
-                <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/15 shadow-lift mb-8">
-                  <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full rounded-full bg-cyan-300 animate-ripple opacity-75" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-cyan-400" />
-                  </span>
-                  <span className="text-[11px] uppercase tracking-[0.22em] text-brass-300 font-bold">
-                    An independent foundation · est. 2026
-                  </span>
-                </div>
-              </Reveal>
+          <div className="max-w-4xl mx-auto text-center text-white flex flex-col items-center">
+            <Reveal>
+              <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/15 shadow-lift mb-8">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-cyan-300 animate-ripple opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-cyan-400" />
+                </span>
+                <span className="text-[11px] uppercase tracking-[0.22em] text-brass-300 font-bold">
+                  An independent foundation · est. 2026
+                </span>
+              </div>
+            </Reveal>
 
-              <Reveal delay={120}>
-                <h1 className="display text-white text-balance mb-8 leading-[0.94]" style={{ fontSize: "clamp(3.5rem, 9vw, 8rem)" }}>
-                  What&apos;s actually
-                  <br />
-                  <em className="not-italic italic font-light text-cyan-300">in</em> your tap water?
-                </h1>
-              </Reveal>
+            <Reveal delay={120}>
+              <h1
+                className="display text-white text-balance mb-8 leading-[0.94] mx-auto"
+                style={{ fontSize: "clamp(3.25rem, 8.5vw, 7.5rem)" }}
+              >
+                What&apos;s actually
+                <br />
+                <em className="not-italic italic font-light text-cyan-300">in</em> your tap water?
+              </h1>
+            </Reveal>
 
-              <Reveal delay={240}>
-                <p className="text-xl md:text-2xl text-white/80 leading-relaxed max-w-xl mb-12 text-pretty font-serif italic">
-                  Clear, science-backed reports on the drinking water in every
-                  U.S. ZIP code — sourced from EWG, written in plain English,
-                  brutally honest about what we know and what we don&apos;t.
-                </p>
-              </Reveal>
+            <Reveal delay={240}>
+              <p className="text-xl md:text-2xl text-white/80 leading-relaxed max-w-2xl mx-auto mb-12 text-pretty font-serif italic">
+                Clear, science-backed reports on the drinking water in every
+                U.S. ZIP code — sourced from EWG, written in plain English,
+                brutally honest about what we know and what we don&apos;t.
+              </p>
+            </Reveal>
 
-              <Reveal delay={360}>
-                <div className="max-w-2xl">
-                  <ZipCodeHero />
-                </div>
-              </Reveal>
+            <Reveal delay={360}>
+              <div className="w-full max-w-2xl mx-auto">
+                <ZipCodeHero />
+              </div>
+            </Reveal>
 
-              <Reveal delay={500}>
-                <div className="mt-12 flex flex-wrap items-center gap-x-7 gap-y-3 text-xs md:text-sm text-white/70">
-                  <span className="inline-flex items-center gap-1.5">
-                    <ShieldCheck className="h-4 w-4 text-cyan-300" />
-                    Live EWG contaminant data
-                  </span>
-                  <span className="text-white/30">·</span>
-                  <span className="inline-flex items-center gap-1.5">
-                    <BookOpen className="h-4 w-4 text-cyan-300" />
-                    Citations on every claim
-                  </span>
-                  <span className="text-white/30">·</span>
-                  <span className="inline-flex items-center gap-1.5">
-                    <Microscope className="h-4 w-4 text-cyan-300" />
-                    Reviewed by environmental health experts
-                  </span>
-                </div>
-              </Reveal>
-            </div>
+            <Reveal delay={500}>
+              <div className="mt-12 flex flex-wrap items-center justify-center gap-x-7 gap-y-3 text-xs md:text-sm text-white/70">
+                <span className="inline-flex items-center gap-1.5">
+                  <ShieldCheck className="h-4 w-4 text-cyan-300" />
+                  Live EWG contaminant data
+                </span>
+                <span className="text-white/30">·</span>
+                <span className="inline-flex items-center gap-1.5">
+                  <BookOpen className="h-4 w-4 text-cyan-300" />
+                  Citations on every claim
+                </span>
+                <span className="text-white/30">·</span>
+                <span className="inline-flex items-center gap-1.5">
+                  <Microscope className="h-4 w-4 text-cyan-300" />
+                  Reviewed by environmental health experts
+                </span>
+              </div>
+            </Reveal>
 
-            {/* Floating depth element on the right — large brass-accented data orb */}
-            <div className="hidden lg:block lg:col-span-5 relative">
-              <Reveal delay={400}>
-                <div className="relative aspect-square max-w-md mx-auto">
-                  {/* Outer ring */}
-                  <div className="absolute inset-0 rounded-full border border-brass-300/30" />
-                  <div className="absolute inset-6 rounded-full border border-white/15" />
-                  <div className="absolute inset-14 rounded-full border border-cyan-300/25" />
-                  {/* Glow */}
-                  <div
-                    className="absolute inset-1/4 rounded-full blur-3xl"
-                    style={{
-                      background:
-                        "radial-gradient(circle at center, rgba(0,180,216,0.5), transparent 70%)",
-                    }}
-                  />
-                  {/* Center text */}
-                  <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
-                    <div className="text-[10px] uppercase tracking-[0.3em] text-brass-300 font-bold mb-3">
-                      Coverage
-                    </div>
-                    <div
-                      className="display text-white font-light leading-none mb-3"
-                      style={{ fontSize: "clamp(4rem, 6vw, 6rem)" }}
-                    >
-                      330M
-                    </div>
-                    <div className="text-sm text-white/70 max-w-[60%] leading-snug">
-                      Americans served by public water systems we cover
-                    </div>
-                  </div>
-                </div>
-              </Reveal>
-            </div>
+            <Reveal delay={620}>
+              <div className="mt-12 inline-flex items-center gap-4 text-white/75">
+                <span className="h-px w-10 bg-brass-400/70" />
+                <span className="display text-2xl md:text-3xl font-light text-white">
+                  330M
+                </span>
+                <span className="text-xs uppercase tracking-[0.22em] text-brass-300 font-bold">
+                  Americans covered
+                </span>
+                <span className="h-px w-10 bg-brass-400/70" />
+              </div>
+            </Reveal>
           </div>
         </Container>
 
