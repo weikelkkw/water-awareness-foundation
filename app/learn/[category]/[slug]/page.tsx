@@ -152,56 +152,114 @@ export default function ArticlePage({
         </figure>
       )}
 
-      <Section className="relative pt-12 pb-20 bg-canvas overflow-hidden">
+      <Section
+        className="relative pt-16 md:pt-20 pb-24 overflow-hidden"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(11,61,92,0.04) 0%, rgba(240,246,251,0.55) 35%, rgba(240,246,251,0.65) 100%)",
+        }}
+      >
         <BodyAtmosphere variant="mixed" />
-        <div className="relative mx-auto max-w-7xl px-5 md:px-8 grid lg:grid-cols-12 gap-12">
-          {/* TOC */}
+        <div className="relative mx-auto max-w-7xl px-5 md:px-8 grid lg:grid-cols-12 gap-10">
+          {/* TOC sidebar — premium card */}
           <aside className="hidden lg:block lg:col-span-3 order-2 lg:order-1">
-            <div className="sticky top-24">
-              <div className="eyebrow-muted mb-4">In this article</div>
-              <nav className="space-y-2">
-                {toc.map((h) => (
-                  <a
-                    key={h.id}
-                    href={`#${h.id}`}
-                    className={
-                      h.level === 2
-                        ? "block text-sm text-ink/75 hover:text-ocean-700 leading-relaxed"
-                        : "block text-sm pl-3 text-muted hover:text-ocean-700 leading-relaxed"
-                    }
-                  >
-                    {h.text}
-                  </a>
-                ))}
-              </nav>
+            <div className="sticky top-24 space-y-5">
+              {/* Article meta card */}
+              <div className="rounded-2xl border border-line bg-white/85 backdrop-blur p-5 shadow-soft">
+                <div className="text-[10px] uppercase tracking-[0.22em] text-brass-500 font-bold mb-3">
+                  Reading
+                </div>
+                <div className="flex items-center gap-1.5 text-sm text-ink/80 mb-1.5">
+                  <BookOpen className="h-3.5 w-3.5 text-cyan-500" />
+                  {a.readingTime} min read
+                </div>
+                <div className="text-xs text-muted leading-relaxed">
+                  Published {formatDate(a.publishedAt)}
+                  {a.updatedAt && (
+                    <>
+                      <br />
+                      Updated {formatDate(a.updatedAt)}
+                    </>
+                  )}
+                </div>
+                {a.reviewedBy && (
+                  <div className="mt-3 pt-3 border-t border-line/70 flex items-start gap-1.5 text-xs text-ink/75">
+                    <ShieldCheck className="h-3.5 w-3.5 text-cyan-500 mt-0.5 flex-shrink-0" />
+                    <span className="leading-relaxed">
+                      Reviewed by {a.reviewedBy}
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              {/* TOC */}
+              <div className="rounded-2xl border border-line bg-white/85 backdrop-blur p-5 shadow-soft">
+                <div className="text-[10px] uppercase tracking-[0.22em] text-brass-500 font-bold mb-4 flex items-center gap-2">
+                  <span className="h-px w-6 bg-brass-300" />
+                  In this article
+                </div>
+                <nav className="space-y-2.5">
+                  {toc.map((h) => (
+                    <a
+                      key={h.id}
+                      href={`#${h.id}`}
+                      className={
+                        h.level === 2
+                          ? "group flex items-start gap-2 text-sm text-ink/75 hover:text-ocean-700 leading-snug transition-colors"
+                          : "group flex items-start gap-2 text-sm pl-4 text-muted hover:text-ocean-700 leading-snug transition-colors"
+                      }
+                    >
+                      {h.level === 2 && (
+                        <span className="mt-2 inline-block h-1.5 w-1.5 rounded-full bg-brass-300/70 group-hover:bg-brass-500 transition-colors flex-shrink-0" />
+                      )}
+                      <span>{h.text}</span>
+                    </a>
+                  ))}
+                </nav>
+              </div>
             </div>
           </aside>
 
-          {/* BODY */}
+          {/* BODY — paper card */}
           <article className="lg:col-span-9 order-1 lg:order-2">
-            <div className="prose-editorial">
-              <MDXRemote
-                source={a.content}
-                components={mdxComponents}
-                options={{
-                  mdxOptions: {
-                    remarkPlugins: [remarkGfm],
-                    rehypePlugins: [rehypeSlug],
-                  },
-                }}
-              />
+            <div className="relative rounded-3xl bg-white shadow-lift border border-line overflow-hidden">
+              {/* Subtle brass top accent */}
+              <span className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brass-300/0 via-brass-400/70 to-brass-300/0" />
+              <div className="prose-editorial px-6 sm:px-10 md:px-14 lg:px-16 py-12 md:py-16">
+                <MDXRemote
+                  source={a.content}
+                  components={mdxComponents}
+                  options={{
+                    mdxOptions: {
+                      remarkPlugins: [remarkGfm],
+                      rehypePlugins: [rehypeSlug],
+                    },
+                  }}
+                />
+              </div>
             </div>
 
-            <div className="mt-16 rounded-3xl bg-ocean-700 text-white p-8 md:p-10">
-              <Eyebrow className="mb-3 text-cyan-200">Newsletter</Eyebrow>
-              <h3 className="display text-2xl md:text-3xl text-white mb-3 text-balance">
-                Get one Sunday email like this — sourced, calm, no spam.
-              </h3>
-              <p className="text-white/80 leading-relaxed mb-6 max-w-xl">
-                We send a single weekly digest summarizing what changed in U.S.
-                drinking water that week. Free, one-click unsubscribe.
-              </p>
-              <NewsletterCapture variant="dark" pitch=" " />
+            <div className="mt-10 relative rounded-3xl bg-gradient-to-br from-ocean-700 via-ocean-800 to-midnight text-white p-8 md:p-12 overflow-hidden">
+              <div className="absolute inset-0 pointer-events-none">
+                <div
+                  className="absolute -top-1/3 -right-1/4 w-[40vw] h-[40vw] max-w-[500px] max-h-[500px] rounded-full blur-3xl opacity-30"
+                  style={{
+                    background:
+                      "radial-gradient(circle at center, rgba(0,180,216,0.5), transparent 60%)",
+                  }}
+                />
+              </div>
+              <div className="relative">
+                <Eyebrow className="mb-3 text-cyan-200">Newsletter</Eyebrow>
+                <h3 className="display text-2xl md:text-3xl text-white mb-3 text-balance leading-[1.1]">
+                  Get one Sunday email like this — sourced, calm, no spam.
+                </h3>
+                <p className="text-white/80 leading-relaxed mb-6 max-w-xl font-serif italic">
+                  We send a single weekly digest summarizing what changed in U.S.
+                  drinking water that week. Free, one-click unsubscribe.
+                </p>
+                <NewsletterCapture variant="dark" pitch=" " />
+              </div>
             </div>
           </article>
         </div>

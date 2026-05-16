@@ -40,7 +40,13 @@ export default function AuthorsPage() {
         </Container>
       </section>
 
-      <Section className="relative py-16 bg-canvas overflow-hidden">
+      <Section
+        className="relative pt-14 md:pt-20 pb-24 overflow-hidden"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(11,61,92,0.04) 0%, rgba(240,246,251,0.55) 35%, rgba(240,246,251,0.65) 100%)",
+        }}
+      >
         <BodyAtmosphere variant="mixed" />
         <Container size="tight" className="relative">
           <div className="space-y-12">

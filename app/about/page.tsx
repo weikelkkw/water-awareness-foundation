@@ -42,10 +42,19 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      <Section className="relative py-16 bg-canvas overflow-hidden">
+      <Section
+        className="relative pt-14 md:pt-20 pb-16 overflow-hidden"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(11,61,92,0.04) 0%, rgba(240,246,251,0.55) 35%, rgba(240,246,251,0.65) 100%)",
+        }}
+      >
         <BodyAtmosphere variant="mixed" />
-        <Container size="tight" className="relative prose-editorial">
-          <h2>Why we exist</h2>
+        <Container size="tight" className="relative">
+          <article className="relative rounded-3xl bg-white shadow-lift border border-line overflow-hidden">
+            <span className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brass-300/0 via-brass-400/70 to-brass-300/0" />
+            <div className="prose-editorial px-6 sm:px-10 md:px-14 lg:px-16 py-12 md:py-16">
+              <h2>Why we exist</h2>
           <p>
             U.S. drinking water is some of the most heavily regulated water on the
             planet. It is also imperfect, and the gap between &quot;in compliance&quot;
@@ -179,9 +188,11 @@ export default function AboutPage() {
             certifications matter, and we will be honest about the limits of our
             own analysis.
           </p>
+            </div>
+          </article>
         </Container>
 
-        <Container size="tight" className="mt-16">
+        <Container size="tight" className="relative mt-12">
           <div className="rounded-3xl bg-ocean-700 text-white p-8 md:p-12 text-center">
             <Eyebrow className="text-cyan-200 mb-4">Start here</Eyebrow>
             <h2 className="display text-3xl md:text-4xl text-white mb-5 text-balance">

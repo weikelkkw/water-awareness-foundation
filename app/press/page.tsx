@@ -71,11 +71,18 @@ export default function PressPage() {
         </Container>
       </section>
 
-      <Section className="relative py-16 bg-canvas overflow-hidden">
+      <Section
+        className="relative pt-14 md:pt-20 pb-24 overflow-hidden"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(11,61,92,0.04) 0%, rgba(240,246,251,0.55) 35%, rgba(240,246,251,0.65) 100%)",
+        }}
+      >
         <BodyAtmosphere variant="mixed" />
         <Container size="tight" className="relative">
           {/* CONTACT CARD */}
-          <div className="rounded-2xl border border-line bg-white p-7 md:p-10 shadow-soft mb-12">
+          <div className="rounded-3xl border border-line bg-white p-7 md:p-10 shadow-lift mb-10 relative overflow-hidden">
+            <span className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brass-300/0 via-brass-400/70 to-brass-300/0" />
             <div className="flex items-center gap-3 mb-3">
               <span className="h-px w-10 bg-brass-300" />
               <Eyebrow>Press contact</Eyebrow>
@@ -91,8 +98,10 @@ export default function PressPage() {
           </div>
 
           {/* WHAT WE CAN PROVIDE */}
-          <div className="prose-editorial">
-            <h2>What we can provide</h2>
+          <div className="relative rounded-3xl bg-white shadow-lift border border-line overflow-hidden">
+            <span className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brass-300/0 via-brass-400/70 to-brass-300/0" />
+            <div className="prose-editorial px-6 sm:px-10 md:px-14 lg:px-16 py-12 md:py-16">
+              <h2>What we can provide</h2>
             <ul>
               <li>
                 <strong>On-the-record commentary</strong> from the foundation
@@ -116,9 +125,11 @@ export default function PressPage() {
               </li>
             </ul>
 
-            <h2>Topics we cover in depth</h2>
+              <h2>Topics we cover in depth</h2>
+            </div>
           </div>
-          <div className="grid md:grid-cols-2 gap-5 my-8">
+
+          <div className="grid md:grid-cols-2 gap-5 my-10">
             {TOPICS.map((t) => (
               <Link
                 key={t.href}
@@ -135,8 +146,10 @@ export default function PressPage() {
             ))}
           </div>
 
-          <div className="prose-editorial">
-            <h2>Citation guidance</h2>
+          <div className="relative rounded-3xl bg-white shadow-lift border border-line overflow-hidden">
+            <span className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brass-300/0 via-brass-400/70 to-brass-300/0" />
+            <div className="prose-editorial px-6 sm:px-10 md:px-14 lg:px-16 py-12 md:py-16">
+              <h2>Citation guidance</h2>
             <p>
               Articles may be cited as &quot;Water Awareness Foundation&quot; with a link
               to the source page. For long-form attribution: &quot;Water Awareness
@@ -154,6 +167,7 @@ export default function PressPage() {
               reviewed by the foundation&apos;s internal review board prior to
               publication. waterawarenessfoundation.com.
             </blockquote>
+            </div>
           </div>
         </Container>
       </Section>

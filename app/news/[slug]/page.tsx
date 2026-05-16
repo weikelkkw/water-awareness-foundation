@@ -78,23 +78,32 @@ export default function NewsPost({ params }: { params: { slug: string } }) {
         </figure>
       )}
 
-      <Section className="relative pt-10 pb-20 bg-canvas overflow-hidden">
+      <Section
+        className="relative pt-14 md:pt-20 pb-24 overflow-hidden"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(11,61,92,0.04) 0%, rgba(240,246,251,0.55) 35%, rgba(240,246,251,0.65) 100%)",
+        }}
+      >
         <BodyAtmosphere variant="mixed" />
         <Container size="tight" className="relative">
-          <article className="prose-editorial">
-            <MDXRemote
-              source={post.content}
-              components={mdxComponents}
-              options={{
-                mdxOptions: {
-                  remarkPlugins: [remarkGfm],
-                  rehypePlugins: [rehypeSlug],
-                },
-              }}
-            />
+          <article className="relative rounded-3xl bg-white shadow-lift border border-line overflow-hidden">
+            <span className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brass-300/0 via-brass-400/70 to-brass-300/0" />
+            <div className="prose-editorial px-6 sm:px-10 md:px-14 lg:px-16 py-12 md:py-16">
+              <MDXRemote
+                source={post.content}
+                components={mdxComponents}
+                options={{
+                  mdxOptions: {
+                    remarkPlugins: [remarkGfm],
+                    rehypePlugins: [rehypeSlug],
+                  },
+                }}
+              />
+            </div>
           </article>
           {post.sourceUrl && (
-            <div className="mt-10 rounded-2xl border border-line bg-ocean-50 p-5 text-sm">
+            <div className="mt-8 rounded-2xl border border-ocean-100 bg-ocean-50/70 backdrop-blur p-5 text-sm">
               <span className="text-muted">Primary source: </span>
               <a
                 href={post.sourceUrl}

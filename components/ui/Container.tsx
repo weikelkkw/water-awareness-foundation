@@ -20,13 +20,15 @@ export function Section({
   children,
   className,
   id,
+  style,
 }: {
   children: React.ReactNode;
   className?: string;
   id?: string;
+  style?: React.CSSProperties;
 }) {
   return (
-    <section id={id} className={cn("py-20 md:py-28", className)}>
+    <section id={id} style={style} className={cn("py-20 md:py-28", className)}>
       {children}
     </section>
   );

@@ -39,10 +39,19 @@ export default function TermsPage() {
         </Container>
       </section>
 
-      <Section className="relative py-16 bg-canvas overflow-hidden">
+      <Section
+        className="relative pt-14 md:pt-20 pb-24 overflow-hidden"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(11,61,92,0.04) 0%, rgba(240,246,251,0.55) 35%, rgba(240,246,251,0.65) 100%)",
+        }}
+      >
         <BodyAtmosphere variant="mixed" />
-        <Container size="tight" className="relative prose-editorial">
-          <h2>About the foundation</h2>
+        <Container size="tight" className="relative">
+          <article className="relative rounded-3xl bg-white shadow-lift border border-line overflow-hidden">
+            <span className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brass-300/0 via-brass-400/70 to-brass-300/0" />
+            <div className="prose-editorial px-6 sm:px-10 md:px-14 lg:px-16 py-12 md:py-16">
+              <h2>About the foundation</h2>
           <p>
             The Water Awareness Foundation (&quot;we,&quot; &quot;us,&quot; the
             &quot;Foundation&quot;) operates waterawarenessfoundation.com as a non-commercial,
@@ -171,6 +180,8 @@ export default function TermsPage() {
             corrections, see{" "}
             <Link href="/methodology#corrections">/methodology#corrections</Link>.
           </p>
+            </div>
+          </article>
         </Container>
       </Section>
     </>
