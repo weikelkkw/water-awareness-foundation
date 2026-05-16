@@ -68,35 +68,40 @@ export default function CategoryPage({
         </Container>
       </section>
 
-      <Section className="relative py-16 bg-canvas overflow-hidden">
+      <Section className="relative py-20 bg-canvas overflow-hidden">
         <BodyAtmosphere variant="mixed" />
         <Container className="relative">
           {articles.length === 0 ? (
             <p className="text-ink/70">No published articles in this section yet.</p>
           ) : (
-            <ul className="divide-y divide-line">
-              {articles.map((a) => (
-                <li key={a.slug} className="py-7">
-                  <Link
-                    href={`/learn/${cat}/${a.slug}`}
-                    className="grid md:grid-cols-12 gap-6 group"
-                  >
+            <div className="grid gap-5 md:gap-6">
+              {articles.map((a, i) => (
+                <Link
+                  key={a.slug}
+                  href={`/learn/${cat}/${a.slug}`}
+                  className="group relative block rounded-3xl border border-line bg-white p-7 md:p-9 shadow-soft hover:shadow-lift hover:border-cyan-300/60 transition-all overflow-hidden"
+                >
+                  <span className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-300/0 via-cyan-400 to-cyan-300/0 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="grid md:grid-cols-12 gap-6 items-start">
                     <div className="md:col-span-3 text-sm text-muted">
+                      <div className="font-serif text-3xl text-ocean-700/40 leading-none mb-3">
+                        {String(i + 1).padStart(2, "0")}
+                      </div>
                       <div className="inline-flex items-center gap-1.5">
                         <BookOpen className="h-3.5 w-3.5" /> {a.readingTime} min read
                       </div>
                       <div className="mt-1">{formatDate(a.publishedAt)}</div>
                     </div>
                     <div className="md:col-span-9">
-                      <h2 className="font-serif text-2xl md:text-3xl text-ocean-700 group-hover:text-cyan-600 transition-colors mb-2 text-balance">
+                      <h2 className="font-serif text-2xl md:text-3xl text-ocean-700 group-hover:text-cyan-600 transition-colors mb-3 text-balance leading-snug">
                         {a.title}
                       </h2>
                       <p className="text-ink/75 leading-relaxed">{a.description}</p>
                     </div>
-                  </Link>
-                </li>
+                  </div>
+                </Link>
               ))}
-            </ul>
+            </div>
           )}
         </Container>
       </Section>

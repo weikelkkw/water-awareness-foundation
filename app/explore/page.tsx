@@ -98,7 +98,7 @@ export default function ExplorePage() {
         </Container>
       </section>
 
-      <Section className="py-8 bg-canvas border-b border-line">
+      <Section className="py-10 bg-ocean-50/40 border-y border-ocean-100/50">
         <Container>
           <div className="flex flex-wrap items-center gap-2 mb-3">
             <Filter className="h-4 w-4 text-muted" />

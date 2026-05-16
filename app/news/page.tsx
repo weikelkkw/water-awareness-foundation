@@ -43,33 +43,38 @@ export default function NewsPage() {
           </div>
         </Container>
       </section>
-      <Section className="relative py-16 bg-canvas overflow-hidden">
+      <Section className="relative py-20 bg-canvas overflow-hidden">
         <BodyAtmosphere variant="mixed" />
         <Container className="relative">
-          <ul className="divide-y divide-line">
-            {all.map((post) => (
-              <li key={post.slug} className="py-8">
-                <Link
-                  href={`/news/${post.slug}`}
-                  className="grid md:grid-cols-12 gap-6 group"
-                >
+          <div className="grid gap-5 md:gap-6">
+            {all.map((post, i) => (
+              <Link
+                key={post.slug}
+                href={`/news/${post.slug}`}
+                className="group relative block rounded-3xl border border-line bg-white p-7 md:p-9 shadow-soft hover:shadow-lift hover:border-cyan-300/60 transition-all overflow-hidden"
+              >
+                <span className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-300/0 via-cyan-400 to-cyan-300/0 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="grid md:grid-cols-12 gap-6 items-start">
                   <div className="md:col-span-3 text-sm text-muted">
-                    <div>{formatDate(post.publishedAt)}</div>
-                    <div className="text-[10px] uppercase tracking-[0.18em] mt-1">
+                    <div className="font-serif text-3xl text-ocean-700/40 leading-none mb-3">
+                      {String(i + 1).padStart(2, "0")}
+                    </div>
+                    <div className="text-ink/70">{formatDate(post.publishedAt)}</div>
+                    <div className="text-[10px] uppercase tracking-[0.18em] text-brass-500 font-bold mt-2">
                       {post.topic}
                       {post.region && ` · ${post.region}`}
                     </div>
                   </div>
                   <div className="md:col-span-9">
-                    <h2 className="font-serif text-2xl md:text-3xl text-ocean-700 group-hover:text-cyan-600 transition-colors mb-2 text-balance">
+                    <h2 className="font-serif text-2xl md:text-3xl text-ocean-700 group-hover:text-cyan-600 transition-colors mb-3 text-balance leading-snug">
                       {post.title}
                     </h2>
                     <p className="text-ink/75 leading-relaxed">{post.description}</p>
                   </div>
-                </Link>
-              </li>
+                </div>
+              </Link>
             ))}
-          </ul>
+          </div>
         </Container>
       </Section>
     </>
