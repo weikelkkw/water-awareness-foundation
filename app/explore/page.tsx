@@ -10,6 +10,7 @@ import {
   type HealthEffect,
 } from "@/lib/contaminants";
 import { BodyAtmosphere } from "@/components/water/BodyAtmosphere";
+import { ContaminantPillCard } from "@/components/water/ContaminantPillCard";
 import { cn } from "@/lib/utils";
 
 const CATEGORIES: { value: ContaminantCategory; label: string }[] = [
@@ -89,8 +90,9 @@ export default function ExplorePage() {
             <p className="text-lg md:text-xl text-white/75 leading-relaxed font-serif italic">
               Filter by source category or health effect. Every entry is a
               fully-sourced deep dive — what it is, where it comes from, what
-              the science actually says, the EPA limit, the EWG health-protective
-              guideline, and exactly which filter types remove it.
+              the science actually says, the legal limit, EWG&apos;s
+              health-protective guideline, and exactly which filter types
+              remove it.
             </p>
           </div>
         </Container>
@@ -151,34 +153,7 @@ export default function ExplorePage() {
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {filtered.map((c) => (
-              <Link
-                key={c.slug}
-                href={`/explore/${c.slug}`}
-                className="group rounded-2xl border border-line bg-white p-7 hover:border-cyan-300 hover:shadow-lift transition-all flex flex-col"
-              >
-                <div className="text-[10px] uppercase tracking-[0.18em] text-muted mb-2">
-                  {c.category.replace("-", " ")}
-                </div>
-                <h3 className="font-serif text-xl text-ocean-700 mb-2 group-hover:text-cyan-600 transition-colors">
-                  {c.name}
-                </h3>
-                <p className="text-[15px] text-ink/75 leading-relaxed mb-5 flex-1">
-                  {c.oneLine}
-                </p>
-                <div className="flex flex-wrap gap-1.5">
-                  {c.healthEffects.tags.slice(0, 4).map((t) => (
-                    <span
-                      key={t}
-                      className="inline-flex text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full bg-ocean-50 text-ocean-700"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-                <span className="mt-5 text-sm text-cyan-500 inline-flex items-center gap-1">
-                  Read the deep dive <ArrowRight className="h-3.5 w-3.5" />
-                </span>
-              </Link>
+              <ContaminantPillCard key={c.slug} contaminant={c} />
             ))}
           </div>
         </Container>

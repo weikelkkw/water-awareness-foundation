@@ -111,7 +111,7 @@ export default function ContaminantPage({
               <h2 className="display text-3xl text-ocean-700 mb-4">Regulation</h2>
               <div className="grid md:grid-cols-3 gap-4 mb-4">
                 <RegBlock
-                  label="EPA legal limit (MCL)"
+                  label="Federal legal limit (MCL)"
                   value={
                     c.regulation.mclLabel ??
                     (c.regulation.mcl
@@ -121,7 +121,7 @@ export default function ContaminantPage({
                   tone="ocean"
                 />
                 <RegBlock
-                  label="EPA health goal (MCLG)"
+                  label="Federal health goal (MCLG)"
                   value={
                     c.regulation.mclgLabel ??
                     (c.regulation.mclg

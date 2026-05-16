@@ -29,7 +29,7 @@ export async function GET(req: Request) {
   } catch (err) {
     console.error("[water-report]", err);
     return NextResponse.json(
-      { error: "EPA SDWIS endpoint failed. Try again shortly." },
+      { error: "Upstream data source failed. Try again shortly." },
       { status: 502 }
     );
   }

@@ -76,7 +76,7 @@ export function ZipCodeHero() {
       )}
 
       <p className="mt-4 text-xs md:text-sm text-muted">
-        Free. No signup. Data from EPA SDWIS, refreshed monthly.
+        Free. No signup. Data from EWG&apos;s Tap Water Database, refreshed monthly.
       </p>
     </form>
   );

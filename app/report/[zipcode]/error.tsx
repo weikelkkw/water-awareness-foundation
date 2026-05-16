@@ -24,12 +24,12 @@ export default function ReportError({
           <AlertTriangle className="h-6 w-6" />
         </div>
         <h1 className="font-serif text-3xl text-ocean-700 mb-3">
-          We hit a snag pulling EPA data.
+          We hit a snag pulling your report.
         </h1>
         <p className="text-ink/75 leading-relaxed mb-8 max-w-md mx-auto">
-          The EPA SDWIS endpoint can be slow or briefly unavailable. Wait a
-          moment and try again — your data is fine, ours just couldn&apos;t
-          reach the source this time.
+          Our data source can be slow or briefly unavailable. Wait a moment
+          and try again — your tap is fine, ours just couldn&apos;t reach
+          the source this time.
         </p>
         <div className="flex justify-center gap-3">
           <Button onClick={() => reset()}>Try again</Button>

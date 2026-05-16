@@ -471,10 +471,10 @@ function NoDataFallback({ zip }: { zip: string }) {
           </h1>
           <p className="text-lg text-ink/75 leading-relaxed mb-8">
             We couldn&apos;t find a public water system serving this ZIP in
-            EPA&apos;s SDWIS database. That doesn&apos;t necessarily mean
-            anything is wrong — small systems, private wells, and recently-
-            connected areas are sometimes slow to appear. Try a nearby ZIP, or
-            sign up below and we&apos;ll notify you when this area is indexed.
+            our utility database. That doesn&apos;t necessarily mean anything
+            is wrong — small systems, private wells, and recently-connected
+            areas are sometimes slow to appear. Try a nearby ZIP, or sign up
+            below and we&apos;ll notify you when this area is indexed.
           </p>
           <ZipCodeHero />
           <div className="max-w-md mx-auto mt-12 text-left">

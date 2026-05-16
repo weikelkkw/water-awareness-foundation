@@ -4,7 +4,7 @@ import { ZipCodeHero } from "@/components/water/ZipCodeHero";
 export const metadata = {
   title: "Find your water report",
   description:
-    "Enter your U.S. ZIP code for an independent, EPA-sourced water quality report.",
+    "Enter your U.S. ZIP code for an independent water quality report — drawn from EWG's Tap Water Database.",
 };
 
 export default function ReportLandingPage() {

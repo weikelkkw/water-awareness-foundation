@@ -17,12 +17,13 @@ import { ZipCodeHero } from "@/components/water/ZipCodeHero";
 import { FactRotator } from "@/components/water/FactRotator";
 import { HeroAtmosphere } from "@/components/water/HeroAtmosphere";
 import { NewsletterCapture } from "@/components/water/NewsletterCapture";
+import { ContaminantPillCard } from "@/components/water/ContaminantPillCard";
 import { CONTAMINANTS } from "@/lib/contaminants";
 
 export const metadata = {
   title: "Know what's in your water.",
   description:
-    "Enter your ZIP code for an independent, science-backed report on the tap water in your area — drawn from EPA SDWIS data and explained in plain English.",
+    "Enter your ZIP code for an independent, science-backed report on the tap water in your area — drawn from EWG's Tap Water Database and explained in plain English.",
 };
 
 const DEMOGRAPHIC_LINKS = [
@@ -70,8 +71,9 @@ export default function HomePage() {
             <Reveal delay={200}>
               <p className="text-lg md:text-xl text-ink/70 leading-relaxed max-w-2xl mx-auto mb-12 text-pretty">
                 Clear, science-backed reports on the drinking water in every
-                U.S. ZIP code — sourced from EPA data, written in plain English,
-                and brutally honest about what we know and what we don&apos;t.
+                U.S. ZIP code — sourced from EWG&apos;s Tap Water Database,
+                written in plain English, and brutally honest about what we
+                know and what we don&apos;t.
               </p>
             </Reveal>
 
@@ -83,7 +85,7 @@ export default function HomePage() {
               <div className="mt-14 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs md:text-sm text-muted">
                 <span className="inline-flex items-center gap-1.5">
                   <ShieldCheck className="h-4 w-4 text-cyan-500" />
-                  Live EPA SDWIS data
+                  Live EWG contaminant data
                 </span>
                 <span className="hidden md:inline text-line">·</span>
                 <span className="inline-flex items-center gap-1.5">
@@ -136,7 +138,7 @@ export default function HomePage() {
             <BigStat
               value="9.2M"
               label="Lead service lines still in U.S. homes"
-              source="EPA Lead Service Line Inventory"
+              source="EWG Tap Water Database"
               delay={0}
             />
             <BigStat
@@ -148,7 +150,7 @@ export default function HomePage() {
             <BigStat
               value="~90"
               label="Contaminants regulated by the Safe Drinking Water Act"
-              source="EPA SDWA"
+              source="Safe Drinking Water Act"
               delay={200}
             />
             <BigStat
@@ -326,21 +328,7 @@ export default function HomePage() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {CONTAMINANTS.slice(0, 6).map((c, i) => (
               <Reveal key={c.slug} delay={i * 60}>
-                <Link
-                  href={`/explore/${c.slug}`}
-                  className="group block rounded-2xl border border-line bg-white p-7 hover:border-cyan-300 hover:shadow-lift transition-all relative overflow-hidden h-full"
-                >
-                  <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brass-300 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <div className="text-[10px] uppercase tracking-[0.18em] text-muted mb-3 font-semibold">
-                    {c.category.replace("-", " ")}
-                  </div>
-                  <h3 className="font-serif text-2xl text-ocean-700 mb-3 group-hover:text-cyan-600 transition-colors">
-                    {c.name}
-                  </h3>
-                  <p className="text-[15px] text-ink/70 leading-relaxed">
-                    {c.oneLine}
-                  </p>
-                </Link>
+                <ContaminantPillCard contaminant={c} />
               </Reveal>
             ))}
           </div>
@@ -495,8 +483,8 @@ export default function HomePage() {
               </h2>
               <p className="text-lg text-white/75 leading-relaxed mb-10 max-w-xl mx-auto">
                 A calm, sourced summary of what changed in U.S. drinking water
-                that week — new EPA rules, new contaminants under review, regional
-                alerts. Unsubscribe in one click.
+                that week — new regulations, new contaminants under review,
+                regional alerts. Unsubscribe in one click.
               </p>
               <div className="max-w-md mx-auto text-left">
                 <NewsletterCapture variant="dark" pitch=" " />

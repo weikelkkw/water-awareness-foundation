@@ -159,8 +159,8 @@ export function EwgContaminantCard({ contaminant: c }: Props) {
 
       <div className="mt-3 text-xs text-muted">
         {c.legalLimit !== null
-          ? `EPA legal limit: ${c.legalLimit} ${c.legalLimitUnit ?? ""}`
-          : "No EPA legal limit"}
+          ? `Legal limit: ${c.legalLimit} ${c.legalLimitUnit ?? ""}`
+          : "No federal legal limit"}
       </div>
     </article>
   );

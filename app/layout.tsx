@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   applicationName: "Water Awareness Foundation",
   keywords: [
     "tap water quality",
-    "EPA SDWIS",
+    "EWG tap water database",
     "PFAS",
     "lead in water",
     "water filter",

@@ -72,9 +72,10 @@ export default function AboutPage() {
           <h2>What we publish</h2>
           <ul>
             <li>
-              <strong>Per-ZIP water reports</strong> using EPA&apos;s Safe Drinking
-              Water Information System (SDWIS) as the primary source, scored
-              against our published methodology.
+              <strong>Per-ZIP water reports</strong> drawn from EWG&apos;s
+              Tap Water Database, with contaminant levels measured against
+              EWG&apos;s health-protective guidelines and our published
+              methodology.
             </li>
             <li>
               <strong>Contaminant deep-dives</strong> on every substance regulated

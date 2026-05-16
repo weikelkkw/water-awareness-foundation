@@ -54,12 +54,12 @@ export function ContaminantCard({ contaminant: c, reason, detected }: Props) {
             <div
               className="absolute top-0 h-full w-px bg-ocean-600"
               style={{ left: `${(1 / 1.5) * 100}%` }}
-              title="EPA legal limit"
+              title="Federal legal limit"
             />
           </div>
           <div className="flex justify-between text-[10px] text-muted mt-1">
             <span>0</span>
-            <span>EPA limit: {mcl!.value} {mcl!.unit}</span>
+            <span>Legal limit: {mcl!.value} {mcl!.unit}</span>
           </div>
         </div>
       )}
@@ -67,7 +67,7 @@ export function ContaminantCard({ contaminant: c, reason, detected }: Props) {
       <div className="grid grid-cols-2 gap-3 text-xs mb-4">
         {mcl && (
           <div className="rounded-lg bg-ocean-50 px-3 py-2">
-            <div className="text-muted">EPA legal limit</div>
+            <div className="text-muted">Federal legal limit</div>
             <div className="font-medium text-ocean-700">{c.regulation.mclLabel ?? `${mcl.value} ${mcl.unit}`}</div>
           </div>
         )}
