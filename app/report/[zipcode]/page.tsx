@@ -392,17 +392,38 @@ export default async function ReportPage({ params }: Props) {
           <div className="flex items-start gap-3 text-sm text-muted">
             <Info className="h-4 w-4 mt-0.5 flex-shrink-0" />
             <p className="leading-relaxed">
-              Contaminant levels from{" "}
-              <a
-                href={`https://www.ewg.org/tapwater/system.php?pws=${primary.pwsid}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-cyan-500 hover:underline inline-flex items-center gap-0.5"
-              >
-                EWG&apos;s Tap Water Database
-                <ExternalLink className="h-3 w-3" />
-              </a>{" "}
-              for {primary.pwsid}. {cached ? "Served from our cache." : "Live."}{" "}
+              {ewg && ewg.contaminants.length > 0 ? (
+                <>
+                  Contaminant levels from{" "}
+                  <a
+                    href={`https://www.ewg.org/tapwater/system.php?pws=${encodeURIComponent(primary.pwsid)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-cyan-500 hover:underline inline-flex items-center gap-0.5"
+                  >
+                    EWG&apos;s Tap Water Database
+                    <ExternalLink className="h-3 w-3" />
+                  </a>{" "}
+                  for {primary.pwsid}.{" "}
+                </>
+              ) : (
+                <>
+                  EWG&apos;s Tap Water Database doesn&apos;t have contaminant
+                  sampling for this utility yet. You can search for nearby
+                  systems on{" "}
+                  <a
+                    href={`https://www.ewg.org/tapwater/search-results.php?zip5=${encodeURIComponent(zip)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-cyan-500 hover:underline inline-flex items-center gap-0.5"
+                  >
+                    EWG
+                    <ExternalLink className="h-3 w-3" />
+                  </a>{" "}
+                  directly.{" "}
+                </>
+              )}
+              {cached ? "Served from our cache." : "Live lookup."}{" "}
               These findings are not a substitute for an at-home lab test of
               your tap. See{" "}
               <Link href="/methodology" className="text-cyan-500 hover:underline">
