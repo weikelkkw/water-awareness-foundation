@@ -78,9 +78,17 @@ const STATIC_PAGES: SearchDoc[] = [
     kind: "page",
     title: "Browse by state",
     description:
-      "State-by-state water profiles — top contaminants of concern, key utilities, and recent news.",
+      "State-by-state water profiles — top contaminants of concern, key utilities, and recent news. Includes the interactive U.S. concern map.",
     href: "/water",
     meta: "Geography",
+  },
+  {
+    kind: "page",
+    title: "Your Water File",
+    description:
+      "Personalized water profile for your household — ranked by what matters most for who lives at your address. Downloadable as PDF.",
+    href: "/your-water-file",
+    meta: "Personalized · downloadable",
   },
   {
     kind: "page",

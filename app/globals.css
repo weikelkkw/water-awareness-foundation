@@ -201,3 +201,46 @@
     -webkit-backdrop-filter: saturate(180%) blur(20px);
   }
 }
+
+/* =============================================================
+   Print styles — for /your-water-file/[zip] export to PDF
+   ============================================================= */
+@media print {
+  /* Hide site chrome */
+  header,
+  footer,
+  nav {
+    display: none !important;
+  }
+  body {
+    background: #fff !important;
+    color: #0B3D5C !important;
+  }
+  /* Strip atmospheric backgrounds + heavy shadows */
+  .shadow-soft,
+  .shadow-lift {
+    box-shadow: none !important;
+  }
+  [class*="bg-midnight"],
+  [class*="bg-ocean-700"],
+  [class*="bg-ocean-800"] {
+    background: transparent !important;
+    color: #0B3D5C !important;
+  }
+  /* Hide CTAs / glow / atmosphere effects in print */
+  .print\:hidden {
+    display: none !important;
+  }
+  /* Page break behavior */
+  section,
+  article {
+    break-inside: avoid-page;
+  }
+  /* Generous serif body for print */
+  body,
+  p,
+  li {
+    font-family: var(--font-fraunces), Georgia, serif !important;
+    color: #1f2937 !important;
+  }
+}

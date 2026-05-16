@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowUpRight, MapPin } from "lucide-react";
 import { Container, Section, Eyebrow } from "@/components/ui/Container";
 import { BodyAtmosphere } from "@/components/water/BodyAtmosphere";
+import { USMap } from "@/components/water/USMap";
 import { STATES } from "@/lib/states";
 
 export const metadata = {
@@ -148,6 +149,30 @@ export default function WaterIndexPage() {
           </div>
         </Container>
       </section>
+
+      {/* ============================================================ */}
+      {/* INTERACTIVE MAP                                              */}
+      {/* ============================================================ */}
+      <Section className="relative py-16 md:py-20 bg-canvas overflow-hidden">
+        <BodyAtmosphere variant="mixed" />
+        <Container className="relative">
+          <div className="max-w-3xl mb-10">
+            <div className="flex items-center gap-3 mb-4">
+              <span className="h-px w-10 bg-brass-400/70" />
+              <Eyebrow>The map</Eyebrow>
+            </div>
+            <h2 className="display text-display-md text-ocean-700 mb-3 text-balance leading-[1.05]">
+              The national picture, at a glance.
+            </h2>
+            <p className="text-lg text-ink/75 leading-relaxed">
+              States colored by the count of EWG-flagged contaminants and the
+              presence of a flagship regional water story. Hover to see top
+              concerns; click to open the state profile.
+            </p>
+          </div>
+          <USMap />
+        </Container>
+      </Section>
 
       {/* ============================================================ */}
       {/* REGIONS                                                      */}

@@ -7,6 +7,7 @@ const COLUMNS = [
     title: "Reports",
     links: [
       { href: "/report", label: "Find your ZIP" },
+      { href: "/your-water-file", label: "Build my Water File" },
       { href: "/compare", label: "Compare two ZIPs" },
       { href: "/methodology", label: "How we score water" },
     ],

@@ -605,6 +605,92 @@ export default function HomePage() {
       </section>
 
       {/* ================================================================ */}
+      {/* YOUR WATER FILE CTA — personalized intake driver                 */}
+      {/* ================================================================ */}
+      <Section className="relative py-20 md:py-24 bg-canvas overflow-hidden">
+        <Container>
+          <Reveal>
+            <div className="relative rounded-3xl bg-gradient-to-br from-ocean-700 via-ocean-800 to-midnight text-white overflow-hidden">
+              <div className="absolute inset-0 pointer-events-none">
+                <div
+                  className="absolute -top-1/3 -right-1/4 w-[50vw] h-[50vw] max-w-[700px] max-h-[700px] rounded-full blur-3xl opacity-30"
+                  style={{
+                    background:
+                      "radial-gradient(circle at center, rgba(0,180,216,0.5), transparent 60%)",
+                  }}
+                />
+                <div
+                  className="absolute -bottom-1/3 -left-1/4 w-[40vw] h-[40vw] max-w-[500px] max-h-[500px] rounded-full blur-3xl opacity-25"
+                  style={{
+                    background:
+                      "radial-gradient(circle at center, rgba(201,166,99,0.5), transparent 60%)",
+                  }}
+                />
+                <div className="absolute inset-0 bg-grid-faint opacity-[0.05]" />
+              </div>
+              <div className="relative grid md:grid-cols-12 gap-10 items-center p-10 md:p-16">
+                <div className="md:col-span-7">
+                  <div className="flex items-center gap-3 mb-5">
+                    <span className="h-px w-12 bg-brass-300" />
+                    <span className="text-[11px] uppercase tracking-[0.28em] text-brass-300 font-bold">
+                      Personalized · downloadable
+                    </span>
+                  </div>
+                  <h2 className="display text-display-md md:text-display-lg text-white mb-5 text-balance leading-[1.02]">
+                    Your Water File —
+                    <em className="not-italic italic font-light text-cyan-300">
+                      {" "}built for your household.
+                    </em>
+                  </h2>
+                  <p className="text-lg md:text-xl text-white/80 leading-relaxed mb-8 max-w-xl font-serif italic">
+                    Five questions about your home and who lives there.
+                    We&apos;ll cross-reference your ZIP&apos;s contaminant
+                    data with what actually matters for your household — and
+                    produce a downloadable file you can keep, print, or send
+                    to your landlord.
+                  </p>
+                  <Link href="/your-water-file">
+                    <Button variant="secondary" size="lg">
+                      Build my Water File <ArrowRight className="h-4 w-4 ml-1" />
+                    </Button>
+                  </Link>
+                  <p className="mt-5 text-xs text-white/55">
+                    Takes ~30 seconds · free · no signup · nothing stored
+                  </p>
+                </div>
+                <div className="md:col-span-5">
+                  <div className="relative rounded-2xl bg-white/[0.06] border border-white/15 backdrop-blur p-6 md:p-7 shadow-lift">
+                    <span className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-brass-300/0 via-brass-400 to-brass-300/0" />
+                    <div className="text-[10px] uppercase tracking-[0.22em] text-brass-300 font-bold mb-4">
+                      Inside your file
+                    </div>
+                    <ul className="space-y-3 text-[15px] text-white/85">
+                      <li className="flex items-start gap-2">
+                        <span className="mt-1.5 inline-block h-1.5 w-1.5 rounded-full bg-cyan-300 flex-shrink-0" />
+                        Contaminants ranked for your household
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="mt-1.5 inline-block h-1.5 w-1.5 rounded-full bg-cyan-300 flex-shrink-0" />
+                        Concrete next steps for your home age and family
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="mt-1.5 inline-block h-1.5 w-1.5 rounded-full bg-cyan-300 flex-shrink-0" />
+                        Filter certifications that actually work
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="mt-1.5 inline-block h-1.5 w-1.5 rounded-full bg-cyan-300 flex-shrink-0" />
+                        Print or save as PDF, branded
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+        </Container>
+      </Section>
+
+      {/* ================================================================ */}
       {/* LIBRARY TEASER — editorial image moment                          */}
       {/* ================================================================ */}
       <Section className="relative bg-gradient-to-b from-ocean-wash to-canvas overflow-hidden">

@@ -18,6 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/learn",
     "/explore",
     "/water",
+    "/your-water-file",
     "/news",
     "/facts",
     "/authors",
