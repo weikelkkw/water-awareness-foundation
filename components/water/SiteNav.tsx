@@ -65,6 +65,12 @@ export function SiteNav() {
           </nav>
 
           <div className="hidden md:flex items-center gap-3">
+            <Link
+              href="/donate"
+              className="text-sm font-medium text-ink/70 hover:text-ocean-700 transition-colors"
+            >
+              Donate
+            </Link>
             <Link href="/#check-your-water">
               <Button size="sm">Check Your Water</Button>
             </Link>
@@ -94,6 +100,13 @@ export function SiteNav() {
                 {item.label}
               </Link>
             ))}
+            <Link
+              href="/donate"
+              onClick={() => setOpen(false)}
+              className="px-3 py-3 rounded-lg text-base font-medium text-ink hover:bg-ocean-50"
+            >
+              Donate
+            </Link>
             <Link
               href="/#check-your-water"
               onClick={() => setOpen(false)}

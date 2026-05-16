@@ -28,6 +28,7 @@ const COLUMNS = [
       { href: "/methodology", label: "Methodology" },
       { href: "/transparency", label: "Transparency" },
       { href: "/press", label: "Press" },
+      { href: "/donate", label: "Donate" },
       { href: "/newsletter", label: "Newsletter" },
       { href: "mailto:hello@waterawarenessfoundation.com", label: "Contact" },
     ],

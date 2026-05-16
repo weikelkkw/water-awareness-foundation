@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, BookOpen, ShieldCheck } from "lucide-react";
+import { ArrowLeft, ArrowRight, BookOpen, ShieldCheck } from "lucide-react";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
@@ -11,6 +11,7 @@ import {
   extractToc,
   getAllSlugs,
   getArticle,
+  getArticlesByCategory,
   type Category,
 } from "@/lib/content/mdx";
 import { formatDate } from "@/lib/utils";
@@ -53,6 +54,9 @@ export default function ArticlePage({
 
   const toc = extractToc(a.content);
   const meta = CATEGORY_META[cat];
+  const related = getArticlesByCategory(cat)
+    .filter((x) => x.slug !== a.slug)
+    .slice(0, 3);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -239,6 +243,38 @@ export default function ArticlePage({
               </div>
             </div>
 
+            {related.length > 0 && (
+              <div className="mt-10">
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="h-px w-10 bg-brass-400/70" />
+                  <Eyebrow>Keep reading</Eyebrow>
+                </div>
+                <h3 className="display text-2xl md:text-3xl text-ocean-700 mb-6 text-balance leading-tight">
+                  More from {meta.title}.
+                </h3>
+                <div className="grid md:grid-cols-3 gap-5">
+                  {related.map((r) => (
+                    <Link
+                      key={r.slug}
+                      href={`/learn/${cat}/${r.slug}`}
+                      className="group relative block rounded-2xl bg-white border border-line p-6 shadow-soft hover:shadow-lift hover:border-cyan-300/60 transition-all overflow-hidden"
+                    >
+                      <span className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-300/0 via-cyan-400 to-cyan-300/0 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <div className="flex items-center gap-2 text-xs text-muted mb-3">
+                        <BookOpen className="h-3 w-3" /> {r.readingTime} min
+                      </div>
+                      <h4 className="font-serif text-lg text-ocean-700 group-hover:text-cyan-600 transition-colors mb-2 leading-snug text-balance">
+                        {r.title}
+                      </h4>
+                      <p className="text-[14px] text-ink/70 leading-relaxed line-clamp-3">
+                        {r.description}
+                      </p>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+
             <div className="mt-10 relative rounded-3xl bg-gradient-to-br from-ocean-700 via-ocean-800 to-midnight text-white p-8 md:p-12 overflow-hidden">
               <div className="absolute inset-0 pointer-events-none">
                 <div
@@ -260,6 +296,21 @@ export default function ArticlePage({
                 </p>
                 <NewsletterCapture variant="dark" pitch=" " />
               </div>
+            </div>
+
+            {/* Inline donate prompt — restrained, single line */}
+            <div className="mt-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-2xl border border-line bg-white p-5">
+              <div className="text-sm text-ink/75 leading-relaxed">
+                This article is donor-funded. No ads, no affiliates, no
+                utility money.
+              </div>
+              <Link
+                href="/donate"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-cyan-600 hover:text-cyan-700"
+              >
+                Support the foundation
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </Link>
             </div>
           </article>
         </div>
