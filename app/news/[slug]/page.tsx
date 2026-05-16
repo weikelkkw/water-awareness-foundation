@@ -57,6 +57,27 @@ export default function NewsPost({ params }: { params: { slug: string } }) {
           <div className="mt-8 text-sm text-white/55">{formatDate(post.publishedAt)}</div>
         </Container>
       </section>
+
+      {post.heroImage && (
+        <figure className="relative bg-midnight">
+          <div className="relative h-[40vw] max-h-[460px] min-h-[240px] w-full overflow-hidden">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={post.heroImage}
+              alt={post.title}
+              className="absolute inset-0 h-full w-full object-cover"
+              loading="eager"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-canvas/95 via-canvas/0 to-midnight/40" />
+          </div>
+          {post.heroCredit && (
+            <figcaption className="absolute bottom-2 right-3 text-[11px] tracking-wide text-white/65 mix-blend-luminosity">
+              {post.heroCredit}
+            </figcaption>
+          )}
+        </figure>
+      )}
+
       <Section className="relative pt-10 pb-20 bg-canvas overflow-hidden">
         <BodyAtmosphere variant="mixed" />
         <Container size="tight" className="relative">

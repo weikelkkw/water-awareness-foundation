@@ -29,13 +29,48 @@ export const metadata = {
 };
 
 const DEMOGRAPHIC_LINKS = [
-  { href: "/learn/demographic/water-and-babies", label: "Babies", caption: "The formula years, brutally honestly." },
-  { href: "/learn/demographic/water-and-children", label: "Children", caption: "Lead, school taps, and the IQ math." },
-  { href: "/learn/demographic/water-and-adults", label: "Adults", caption: "Cumulative exposure and the 40-year math." },
-  { href: "/learn/health/water-and-pregnancy", label: "Pregnancy", caption: "Lead, PFAS, and what to filter for." },
-  { href: "/learn/demographic/water-and-pets", label: "Pets", caption: "What the dog is actually drinking." },
-  { href: "/learn/demographic/water-and-plants-environment", label: "Plants", caption: "Fluoride tip-burn, chlorine, hydroponics." },
-  { href: "/learn/demographic/water-and-the-home", label: "Your home", caption: "Appliances, scaling, corrosion." },
+  {
+    href: "/learn/demographic/water-and-babies",
+    label: "Babies",
+    caption: "The formula years, brutally honestly.",
+    image: "https://images.unsplash.com/photo-1606787366850-de6330128bfc?auto=format&fit=crop&w=240&q=70",
+  },
+  {
+    href: "/learn/demographic/water-and-children",
+    label: "Children",
+    caption: "Lead, school taps, and the IQ math.",
+    image: "https://images.unsplash.com/photo-1502740479091-635887520276?auto=format&fit=crop&w=240&q=70",
+  },
+  {
+    href: "/learn/demographic/water-and-adults",
+    label: "Adults",
+    caption: "Cumulative exposure and the 40-year math.",
+    image: "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=240&q=70",
+  },
+  {
+    href: "/learn/health/water-and-pregnancy",
+    label: "Pregnancy",
+    caption: "Lead, PFAS, and what to filter for.",
+    image: "https://images.unsplash.com/photo-1559825481-12a05cc00344?auto=format&fit=crop&w=240&q=70",
+  },
+  {
+    href: "/learn/demographic/water-and-pets",
+    label: "Pets",
+    caption: "What the dog is actually drinking.",
+    image: "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=240&q=70",
+  },
+  {
+    href: "/learn/demographic/water-and-plants-environment",
+    label: "Plants",
+    caption: "Fluoride tip-burn, chlorine, hydroponics.",
+    image: "https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=240&q=70",
+  },
+  {
+    href: "/learn/demographic/water-and-the-home",
+    label: "Your home",
+    caption: "Appliances, scaling, corrosion.",
+    image: "https://images.unsplash.com/photo-1604881991720-f91add269bed?auto=format&fit=crop&w=240&q=70",
+  },
 ];
 
 const MARQUEE_ITEMS = [
@@ -374,9 +409,18 @@ export default function HomePage() {
                     <Reveal delay={i * 60}>
                       <Link
                         href={d.href}
-                        className="group flex items-center justify-between gap-6 py-6 transition-all"
+                        className="group flex items-center justify-between gap-5 md:gap-6 py-6 transition-all"
                       >
-                        <div className="flex-1">
+                        <div className="flex-shrink-0 h-14 w-14 md:h-16 md:w-16 rounded-full overflow-hidden ring-1 ring-white/15 group-hover:ring-brass-400/70 transition-all">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={d.image}
+                            alt=""
+                            className="h-full w-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+                            loading="lazy"
+                          />
+                        </div>
+                        <div className="flex-1 min-w-0">
                           <div className="font-serif text-2xl md:text-4xl text-white group-hover:text-cyan-300 transition-colors mb-1 leading-tight">
                             {d.label}
                           </div>

@@ -132,6 +132,26 @@ export default function ArticlePage({
         </Container>
       </section>
 
+      {a.heroImage && (
+        <figure className="relative bg-midnight">
+          <div className="relative h-[44vw] max-h-[520px] min-h-[260px] w-full overflow-hidden">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={a.heroImage}
+              alt={a.title}
+              className="absolute inset-0 h-full w-full object-cover"
+              loading="eager"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-canvas/95 via-canvas/0 to-midnight/40" />
+          </div>
+          {a.heroCredit && (
+            <figcaption className="absolute bottom-2 right-3 text-[11px] tracking-wide text-white/65 mix-blend-luminosity">
+              {a.heroCredit}
+            </figcaption>
+          )}
+        </figure>
+      )}
+
       <Section className="relative pt-12 pb-20 bg-canvas overflow-hidden">
         <BodyAtmosphere variant="mixed" />
         <div className="relative mx-auto max-w-7xl px-5 md:px-8 grid lg:grid-cols-12 gap-12">

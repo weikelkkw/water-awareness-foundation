@@ -12,6 +12,8 @@ export interface NewsFrontmatter {
   topic: string;
   sourceUrl?: string;
   sourcePublisher?: string;
+  heroImage?: string;
+  heroCredit?: string;
 }
 
 export interface NewsSummary extends NewsFrontmatter {
