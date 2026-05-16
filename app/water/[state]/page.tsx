@@ -9,6 +9,12 @@ import {
   AlertTriangle,
   MapPin,
   ExternalLink,
+  ShieldCheck,
+  Clock,
+  Landmark,
+  Home,
+  Filter,
+  Mail,
 } from "lucide-react";
 import { Container, Section, Eyebrow } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
@@ -28,7 +34,7 @@ export function generateMetadata({ params }: { params: { state: string } }) {
   if (!s) return {};
   return {
     title: `Water in ${s.name}`,
-    description: `Independent profile of drinking water in ${s.name} — top contaminants of concern, key utilities, and recent news. Drawn from EPA SDWIS and EWG.`,
+    description: `Independent public profile of drinking water in ${s.name} — top contaminants, key utilities, regulatory posture, historical timeline, and what to do about it. Drawn from EPA SDWIS and EWG.`,
   };
 }
 
@@ -46,6 +52,12 @@ export default function StatePage({
 
   const stateNews = getAllNews().filter(
     (n) => n.region === s.name || n.region === s.abbreviation
+  );
+
+  // Max population for utility bar scaling
+  const maxUtilityPop = Math.max(
+    1,
+    ...(s.notableUtilities?.map((u) => u.populationServed) ?? [1])
   );
 
   return (
@@ -148,6 +160,124 @@ export default function StatePage({
       )}
 
       {/* ============================================================ */}
+      {/* REGULATORY POSTURE + STATE REGULATOR                         */}
+      {/* ============================================================ */}
+      {(s.regulatoryPosture || s.regulator) && (
+        <Section className="relative py-16 md:py-20 bg-canvas overflow-hidden">
+          <BodyAtmosphere variant="mixed" />
+          <Container size="tight" className="relative">
+            <div className="grid md:grid-cols-12 gap-6 md:gap-8 items-stretch">
+              {s.regulatoryPosture && (
+                <div className="md:col-span-7 relative rounded-3xl bg-white border border-line shadow-soft p-7 md:p-10 overflow-hidden">
+                  <span className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-ocean-300 via-ocean-500 to-ocean-300" />
+                  <div className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-ocean-50 text-ocean-700 mb-5">
+                    <Landmark className="h-5 w-5" />
+                  </div>
+                  <div className="text-[10px] uppercase tracking-[0.22em] text-brass-500 font-bold mb-2">
+                    Regulatory posture
+                  </div>
+                  <h2 className="font-serif text-2xl md:text-3xl text-ocean-700 mb-4 leading-tight text-balance">
+                    How {s.name} regulates drinking water.
+                  </h2>
+                  <p className="text-[15px] md:text-base text-ink/80 leading-relaxed">
+                    {s.regulatoryPosture}
+                  </p>
+                </div>
+              )}
+
+              <div className="md:col-span-5 relative rounded-3xl bg-gradient-to-br from-ocean-700 via-ocean-800 to-midnight text-white shadow-lift p-7 md:p-10 overflow-hidden">
+                <div className="absolute inset-0 pointer-events-none">
+                  <div
+                    className="absolute -top-1/4 -right-1/4 w-[40vw] h-[40vw] max-w-[400px] max-h-[400px] rounded-full blur-3xl opacity-25"
+                    style={{
+                      background:
+                        "radial-gradient(circle at center, rgba(0,180,216,0.5), transparent 60%)",
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-grid-faint opacity-[0.06]" />
+                </div>
+                <div className="relative">
+                  <div className="text-[10px] uppercase tracking-[0.22em] text-brass-300 font-bold mb-3">
+                    State regulator
+                  </div>
+                  <h3 className="font-serif text-xl md:text-2xl text-white leading-tight mb-5 text-balance">
+                    {s.regulator.name}
+                  </h3>
+                  <div className="flex flex-col gap-2.5">
+                    <a
+                      href={s.regulator.websiteUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-sm text-cyan-200 hover:text-white group"
+                    >
+                      <ExternalLink className="h-3.5 w-3.5" />
+                      Visit regulator website
+                      <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                    </a>
+                    {s.regulator.complaintsUrl && (
+                      <a
+                        href={s.regulator.complaintsUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-sm text-cyan-200 hover:text-white group"
+                      >
+                        <Mail className="h-3.5 w-3.5" />
+                        File a complaint
+                        <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Container>
+        </Section>
+      )}
+
+      {/* ============================================================ */}
+      {/* TIMELINE                                                     */}
+      {/* ============================================================ */}
+      {s.timeline && s.timeline.length > 0 && (
+        <Section className="relative py-20 bg-ocean-50/40 border-y border-ocean-100/50 overflow-hidden">
+          <Container size="tight" className="relative">
+            <div className="flex items-center gap-3 mb-5">
+              <span className="h-px w-10 bg-brass-400/70" />
+              <Eyebrow>Historical timeline</Eyebrow>
+            </div>
+            <h2 className="display text-display-md text-ocean-700 mb-3 text-balance leading-[1.05]">
+              {s.name}&apos;s water history, in order.
+            </h2>
+            <p className="text-lg text-ink/75 leading-relaxed mb-12 max-w-2xl">
+              The contamination events, regulatory shifts, and major
+              settlements that define how this state thinks about drinking
+              water today.
+            </p>
+
+            <ol className="relative space-y-6 md:space-y-7 before:absolute before:left-[15px] md:before:left-[27px] before:top-2 before:bottom-2 before:w-px before:bg-gradient-to-b before:from-brass-300 before:via-brass-400/60 before:to-brass-300/0">
+              {s.timeline.map((t, i) => (
+                <li
+                  key={i}
+                  className="relative pl-10 md:pl-16"
+                >
+                  <span className="absolute left-0 top-1.5 inline-flex h-8 w-8 md:h-12 md:w-12 items-center justify-center rounded-full bg-white border-2 border-brass-300 shadow-soft">
+                    <Clock className="h-3 w-3 md:h-4 md:w-4 text-brass-500" />
+                  </span>
+                  <div className="rounded-2xl bg-white border border-line p-5 md:p-6 shadow-soft">
+                    <div className="display text-2xl md:text-3xl text-ocean-700 font-light leading-none mb-2">
+                      {t.year}
+                    </div>
+                    <p className="text-[15px] md:text-base text-ink/85 leading-relaxed">
+                      {t.event}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </Container>
+        </Section>
+      )}
+
+      {/* ============================================================ */}
       {/* SOURCE MIX + MAJOR CITIES                                    */}
       {/* ============================================================ */}
       <Section className="relative py-16 md:py-20 bg-canvas overflow-hidden">
@@ -190,9 +320,78 @@ export default function StatePage({
       </Section>
 
       {/* ============================================================ */}
+      {/* NOTABLE UTILITIES                                            */}
+      {/* ============================================================ */}
+      {s.notableUtilities && s.notableUtilities.length > 0 && (
+        <Section className="relative py-20 bg-ocean-50/40 border-y border-ocean-100/50 overflow-hidden">
+          <Container size="tight" className="relative">
+            <div className="flex items-center gap-3 mb-5">
+              <span className="h-px w-10 bg-brass-400/70" />
+              <Eyebrow>Notable utilities</Eyebrow>
+            </div>
+            <h2 className="display text-display-md text-ocean-700 mb-3 text-balance leading-[1.05]">
+              Who actually serves the water.
+            </h2>
+            <p className="text-lg text-ink/75 leading-relaxed mb-10 max-w-2xl">
+              The largest public water systems in {s.name} by population
+              served. Click your ZIP after to see the full live EWG report
+              for your specific utility.
+            </p>
+            <ul className="space-y-3 md:space-y-3.5">
+              {s.notableUtilities.map((u, i) => {
+                const widthPct = (u.populationServed / maxUtilityPop) * 100;
+                return (
+                  <li
+                    key={i}
+                    className="relative rounded-2xl bg-white border border-line shadow-soft overflow-hidden"
+                  >
+                    {/* Population bar fill */}
+                    <div
+                      className="absolute inset-y-0 left-0 bg-gradient-to-r from-ocean-50/0 via-ocean-50 to-cyan-50/70 pointer-events-none"
+                      style={{ width: `${widthPct}%` }}
+                    />
+                    <div className="relative flex items-center justify-between gap-4 p-5 md:p-6">
+                      <div className="min-w-0 flex-1">
+                        <div className="font-serif text-lg md:text-xl text-ocean-700 leading-tight">
+                          {u.name}
+                        </div>
+                        <div className="text-xs text-muted mt-1 flex items-center gap-1.5">
+                          <MapPin className="h-3 w-3" />
+                          {u.city}
+                          {u.notes && (
+                            <span className="hidden md:inline text-ink/55 italic">
+                              · {u.notes}
+                            </span>
+                          )}
+                        </div>
+                        {u.notes && (
+                          <div className="md:hidden text-xs text-ink/55 italic mt-1">
+                            {u.notes}
+                          </div>
+                        )}
+                      </div>
+                      <div className="text-right flex-shrink-0">
+                        <div className="font-serif text-2xl md:text-3xl text-ocean-700 font-light leading-none">
+                          {(u.populationServed / 1_000).toLocaleString(undefined, { maximumFractionDigits: 0 })}K
+                        </div>
+                        <div className="text-[10px] uppercase tracking-[0.18em] text-muted font-bold mt-1">
+                          served
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </Container>
+        </Section>
+      )}
+
+      {/* ============================================================ */}
       {/* TOP CONTAMINANTS                                             */}
       {/* ============================================================ */}
-      <Section className="relative py-20 bg-ocean-50/40 border-y border-ocean-100/50 overflow-hidden">
+      <Section className="relative py-20 bg-canvas overflow-hidden">
+        <BodyAtmosphere variant="mixed" />
         <Container className="relative">
           <div className="max-w-2xl mb-12">
             <div className="flex items-center gap-3 mb-4">
@@ -217,11 +416,106 @@ export default function StatePage({
       </Section>
 
       {/* ============================================================ */}
+      {/* RISK GROUPS + INFRASTRUCTURE                                 */}
+      {/* ============================================================ */}
+      {(s.whoIsAtRisk || s.leadServiceLines || s.privateWellShare) && (
+        <Section className="relative py-20 bg-ocean-50/40 border-y border-ocean-100/50 overflow-hidden">
+          <Container size="tight" className="relative">
+            <div className="flex items-center gap-3 mb-5">
+              <span className="h-px w-10 bg-brass-400/70" />
+              <Eyebrow>Who&apos;s most exposed</Eyebrow>
+            </div>
+            <h2 className="display text-display-md text-ocean-700 mb-8 text-balance leading-[1.05]">
+              Risk isn&apos;t evenly distributed.
+            </h2>
+
+            {s.whoIsAtRisk && (
+              <div className="relative rounded-3xl bg-white border border-line shadow-soft p-7 md:p-10 overflow-hidden mb-5">
+                <span className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-amber-300 via-amber-400 to-amber-300" />
+                <div className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-amber-50 text-amber-600 mb-5">
+                  <Users className="h-5 w-5" />
+                </div>
+                <div className="text-[10px] uppercase tracking-[0.22em] text-brass-500 font-bold mb-2">
+                  Demographic risk read
+                </div>
+                <p className="text-base md:text-lg text-ink/85 leading-relaxed font-serif italic">
+                  {s.whoIsAtRisk}
+                </p>
+              </div>
+            )}
+
+            <div className="grid md:grid-cols-2 gap-5">
+              {s.leadServiceLines && (
+                <div className="rounded-2xl bg-white border border-line p-6 shadow-soft relative overflow-hidden">
+                  <span className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-red-400 via-red-500 to-red-400" />
+                  <div className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-red-50 text-red-600 mb-4">
+                    <Building2 className="h-4 w-4" />
+                  </div>
+                  <div className="text-[10px] uppercase tracking-[0.22em] text-brass-500 font-bold mb-2">
+                    Lead service lines
+                  </div>
+                  <div className="font-serif text-3xl text-ocean-700 font-light mb-2">
+                    {s.leadServiceLines.approxCount
+                      ? `~${s.leadServiceLines.approxCount.toLocaleString()}`
+                      : "—"}
+                  </div>
+                  {s.leadServiceLines.notes && (
+                    <p className="text-[13px] text-ink/70 leading-relaxed">
+                      {s.leadServiceLines.notes}
+                    </p>
+                  )}
+                </div>
+              )}
+              {s.privateWellShare && (
+                <div className="rounded-2xl bg-white border border-line p-6 shadow-soft relative overflow-hidden">
+                  <span className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-300 via-cyan-400 to-cyan-300" />
+                  <div className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-cyan-50 text-cyan-600 mb-4">
+                    <Home className="h-4 w-4" />
+                  </div>
+                  <div className="text-[10px] uppercase tracking-[0.22em] text-brass-500 font-bold mb-2">
+                    Private wells
+                  </div>
+                  <p className="text-[15px] text-ink/85 leading-relaxed">
+                    {s.privateWellShare}
+                  </p>
+                </div>
+              )}
+            </div>
+          </Container>
+        </Section>
+      )}
+
+      {/* ============================================================ */}
+      {/* FILTER RECOMMENDATION                                        */}
+      {/* ============================================================ */}
+      {s.filterRecommendation && (
+        <Section className="relative py-16 md:py-20 bg-canvas overflow-hidden">
+          <BodyAtmosphere variant="mixed" />
+          <Container size="tight" className="relative">
+            <div className="relative rounded-3xl bg-gradient-to-br from-cyan-50 to-ocean-50/60 border border-cyan-100 p-8 md:p-12 overflow-hidden">
+              <div className="flex items-center gap-3 mb-4">
+                <Filter className="h-4 w-4 text-cyan-700" />
+                <span className="text-[10px] uppercase tracking-[0.22em] text-cyan-700 font-bold">
+                  Filter recommendation for {s.name}
+                </span>
+              </div>
+              <p className="display text-2xl md:text-3xl text-ocean-700 leading-snug text-balance">
+                {s.filterRecommendation}
+              </p>
+              <p className="mt-5 text-xs text-muted">
+                We don&apos;t recommend brands — the NSF/ANSI certification
+                number matters more than the name on the box.
+              </p>
+            </div>
+          </Container>
+        </Section>
+      )}
+
+      {/* ============================================================ */}
       {/* NEWS FOR THIS STATE                                          */}
       {/* ============================================================ */}
       {stateNews.length > 0 && (
-        <Section className="relative py-20 bg-canvas overflow-hidden">
-          <BodyAtmosphere variant="mixed" />
+        <Section className="relative py-20 bg-ocean-50/40 border-y border-ocean-100/50 overflow-hidden">
           <Container size="tight" className="relative">
             <div className="flex items-center gap-3 mb-4">
               <span className="h-px w-10 bg-brass-400/70" />
@@ -285,14 +579,22 @@ export default function StatePage({
                 <p className="text-white/75 leading-relaxed font-serif italic text-lg max-w-xl">
                   State-level patterns don&apos;t tell you about your specific
                   tap. Run your ZIP for the live EWG contaminant report on
-                  your utility.
+                  your utility — or build a personalized Water File for your
+                  household.
                 </p>
               </div>
-              <div className="md:col-span-4 md:text-right">
+              <div className="md:col-span-4 md:text-right flex flex-col gap-3 md:items-end">
                 <Link href="/report">
                   <Button variant="secondary" size="lg">
                     Get my ZIP report <ArrowRight className="h-4 w-4 ml-1" />
                   </Button>
+                </Link>
+                <Link
+                  href="/your-water-file"
+                  className="text-sm text-cyan-200 hover:text-white inline-flex items-center gap-1"
+                >
+                  or build my Water File
+                  <ArrowRight className="h-3 w-3" />
                 </Link>
               </div>
             </div>
@@ -305,25 +607,30 @@ export default function StatePage({
       {/* ============================================================ */}
       <Section className="py-10 bg-canvas border-t border-line">
         <Container size="tight">
-          <p className="text-sm text-muted leading-relaxed">
-            Source-water mix and utility counts are approximate, drawn from
-            EPA SDWIS public data and state primacy-agency summaries.
-            Contaminant rankings reflect EWG state-level monitoring data and
-            regional regulatory action — they are not exhaustive. See{" "}
-            <Link href="/methodology" className="text-cyan-600 hover:underline">
-              methodology
-            </Link>{" "}
-            for the full sourcing.{" "}
-            <a
-              href={`https://www.epa.gov/enviro/sdwis-search?state=${s.abbreviation}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-cyan-600 hover:underline inline-flex items-center gap-1"
-            >
-              Search EPA SDWIS for {s.name}
-              <ExternalLink className="h-3 w-3" />
-            </a>
-          </p>
+          <div className="flex items-start gap-3 text-sm text-muted leading-relaxed">
+            <ShieldCheck className="h-4 w-4 mt-0.5 flex-shrink-0 text-cyan-500" />
+            <p>
+              Source-water mix, utility counts, lead-service-line estimates,
+              and private-well shares are approximate, drawn from EPA SDWIS
+              public data and state primacy-agency summaries. Contaminant
+              rankings reflect EWG state-level monitoring data and regional
+              regulatory action — they are not exhaustive. Timeline events
+              are publicly documented. See{" "}
+              <Link href="/methodology" className="text-cyan-600 hover:underline">
+                methodology
+              </Link>{" "}
+              for the full sourcing.{" "}
+              <a
+                href={`https://www.epa.gov/enviro/sdwis-search?state=${s.abbreviation}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-cyan-600 hover:underline inline-flex items-center gap-1"
+              >
+                Search EPA SDWIS for {s.name}
+                <ExternalLink className="h-3 w-3" />
+              </a>
+            </p>
+          </div>
         </Container>
       </Section>
     </>
