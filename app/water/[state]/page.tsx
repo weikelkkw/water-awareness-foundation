@@ -15,12 +15,20 @@ import {
   Home,
   Filter,
   Mail,
+  Waves,
+  Factory,
+  School,
+  Wind,
+  HelpCircle,
+  Scroll,
+  CheckCircle2,
 } from "lucide-react";
 import { Container, Section, Eyebrow } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { BodyAtmosphere } from "@/components/water/BodyAtmosphere";
 import { ContaminantPillCard } from "@/components/water/ContaminantPillCard";
 import { STATES, getStateBySlug } from "@/lib/states";
+import { getStateExtendedBySlug } from "@/lib/states-extended";
 import { getContaminant } from "@/lib/contaminants";
 import { getAllNews } from "@/lib/content/news";
 import { formatDate } from "@/lib/utils";
@@ -45,6 +53,8 @@ export default function StatePage({
 }) {
   const s = getStateBySlug(params.state);
   if (!s) notFound();
+
+  const ext = getStateExtendedBySlug(params.state);
 
   const contaminants = s.topContaminants
     .map((slug) => getContaminant(slug))
@@ -278,6 +288,60 @@ export default function StatePage({
       )}
 
       {/* ============================================================ */}
+      {/* SOURCE WATERSHEDS — physical water bodies                    */}
+      {/* ============================================================ */}
+      {ext?.sourceWatersheds && ext.sourceWatersheds.length > 0 && (
+        <Section className="relative py-20 bg-canvas overflow-hidden">
+          <BodyAtmosphere variant="cyan" />
+          <Container size="tight" className="relative">
+            <div className="flex items-center gap-3 mb-5">
+              <span className="h-px w-10 bg-brass-400/70" />
+              <Eyebrow>Source watersheds</Eyebrow>
+            </div>
+            <h2 className="display text-display-md text-ocean-700 mb-3 text-balance leading-[1.05]">
+              The actual water you drink.
+            </h2>
+            <p className="text-lg text-ink/75 leading-relaxed mb-10 max-w-2xl">
+              The physical rivers, aquifers, lakes, and reservoirs that feed
+              {" "}{s.name}&apos;s public water systems. Source quality is the
+              foundation of tap quality — and where the long-term protection
+              fights happen.
+            </p>
+            <ul className="grid md:grid-cols-2 gap-4 md:gap-5">
+              {ext.sourceWatersheds.map((w, i) => (
+                <li
+                  key={i}
+                  className="relative rounded-2xl bg-white border border-line p-6 shadow-soft overflow-hidden"
+                >
+                  <span className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-300 via-cyan-400 to-cyan-300" />
+                  <div className="flex items-start gap-3">
+                    <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-50 text-cyan-700 flex-shrink-0">
+                      <Waves className="h-4 w-4" />
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-[10px] uppercase tracking-[0.18em] text-brass-500 font-bold">
+                          {w.type}
+                        </span>
+                      </div>
+                      <div className="font-serif text-lg text-ocean-700 leading-snug mb-1.5">
+                        {w.name}
+                      </div>
+                      {w.notes && (
+                        <p className="text-[13px] text-ink/70 leading-relaxed">
+                          {w.notes}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </Container>
+        </Section>
+      )}
+
+      {/* ============================================================ */}
       {/* SOURCE MIX + MAJOR CITIES                                    */}
       {/* ============================================================ */}
       <Section className="relative py-16 md:py-20 bg-canvas overflow-hidden">
@@ -388,10 +452,46 @@ export default function StatePage({
       )}
 
       {/* ============================================================ */}
+      {/* INDUSTRY CONTAMINATION PROFILE                               */}
+      {/* ============================================================ */}
+      {ext?.industryProfile && (
+        <Section className="relative py-20 bg-canvas overflow-hidden">
+          <BodyAtmosphere variant="mixed" />
+          <Container size="tight" className="relative">
+            <div className="grid md:grid-cols-12 gap-6 md:gap-8">
+              <div className="md:col-span-5">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="h-px w-10 bg-brass-400/70" />
+                  <Eyebrow>Industry profile</Eyebrow>
+                </div>
+                <h2 className="display text-display-md text-ocean-700 mb-4 text-balance leading-[1.05]">
+                  Where the contamination comes from.
+                </h2>
+                <p className="text-base text-ink/75 leading-relaxed">
+                  Every state has a different industrial fingerprint. The
+                  industries below are the dominant historical and
+                  active contamination sources in {s.name}&apos;s drinking
+                  water systems.
+                </p>
+              </div>
+              <div className="md:col-span-7 relative rounded-3xl bg-white border border-line shadow-soft p-7 md:p-9 overflow-hidden">
+                <span className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-amber-300 via-amber-400 to-amber-300" />
+                <div className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-amber-50 text-amber-600 mb-5">
+                  <Factory className="h-5 w-5" />
+                </div>
+                <p className="text-base md:text-lg text-ink/85 leading-relaxed">
+                  {ext.industryProfile}
+                </p>
+              </div>
+            </div>
+          </Container>
+        </Section>
+      )}
+
+      {/* ============================================================ */}
       {/* TOP CONTAMINANTS                                             */}
       {/* ============================================================ */}
-      <Section className="relative py-20 bg-canvas overflow-hidden">
-        <BodyAtmosphere variant="mixed" />
+      <Section className="relative py-20 bg-ocean-50/40 border-y border-ocean-100/50 overflow-hidden">
         <Container className="relative">
           <div className="max-w-2xl mb-12">
             <div className="flex items-center gap-3 mb-4">
@@ -486,11 +586,161 @@ export default function StatePage({
       )}
 
       {/* ============================================================ */}
+      {/* CLIMATE THREATS + SCHOOLS LEAD TESTING                       */}
+      {/* ============================================================ */}
+      {(ext?.climateThreats || ext?.schoolsLeadTesting) && (
+        <Section className="relative py-20 bg-canvas overflow-hidden">
+          <BodyAtmosphere variant="mixed" />
+          <Container size="tight" className="relative">
+            <div className="grid md:grid-cols-2 gap-5 md:gap-6">
+              {ext.climateThreats && (
+                <div className="relative rounded-3xl bg-white border border-line shadow-soft p-7 md:p-8 overflow-hidden">
+                  <span className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-amber-300 via-amber-500 to-amber-300" />
+                  <div className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-amber-50 text-amber-600 mb-5">
+                    <Wind className="h-5 w-5" />
+                  </div>
+                  <div className="text-[10px] uppercase tracking-[0.22em] text-brass-500 font-bold mb-2">
+                    Climate threats
+                  </div>
+                  <h3 className="font-serif text-xl text-ocean-700 mb-3 leading-snug">
+                    What&apos;s coming for {s.name}&apos;s water.
+                  </h3>
+                  <p className="text-[15px] text-ink/75 leading-relaxed">
+                    {ext.climateThreats}
+                  </p>
+                </div>
+              )}
+
+              {ext.schoolsLeadTesting && (
+                <div className="relative rounded-3xl bg-white border border-line shadow-soft p-7 md:p-8 overflow-hidden">
+                  <span
+                    className={
+                      "absolute top-0 left-0 right-0 h-0.5 " +
+                      (ext.schoolsLeadTesting.status === "mandated"
+                        ? "bg-gradient-to-r from-cyan-300 via-cyan-500 to-cyan-300"
+                        : "bg-gradient-to-r from-amber-300 via-amber-400 to-amber-300")
+                    }
+                  />
+                  <div
+                    className={
+                      "inline-flex h-11 w-11 items-center justify-center rounded-2xl mb-5 " +
+                      (ext.schoolsLeadTesting.status === "mandated"
+                        ? "bg-cyan-50 text-cyan-700"
+                        : "bg-amber-50 text-amber-600")
+                    }
+                  >
+                    <School className="h-5 w-5" />
+                  </div>
+                  <div className="text-[10px] uppercase tracking-[0.22em] text-brass-500 font-bold mb-2">
+                    Schools lead testing
+                  </div>
+                  <h3 className="font-serif text-xl text-ocean-700 mb-2 leading-snug capitalize">
+                    {ext.schoolsLeadTesting.status === "mandated"
+                      ? "Statewide mandate"
+                      : ext.schoolsLeadTesting.status === "voluntary"
+                      ? "Voluntary statewide"
+                      : ext.schoolsLeadTesting.status === "limited"
+                      ? "Limited program"
+                      : "No statewide program"}
+                  </h3>
+                  <p className="text-[15px] text-ink/75 leading-relaxed">
+                    {ext.schoolsLeadTesting.detail}
+                  </p>
+                </div>
+              )}
+            </div>
+          </Container>
+        </Section>
+      )}
+
+      {/* ============================================================ */}
+      {/* WHAT TO ASK YOUR UTILITY                                     */}
+      {/* ============================================================ */}
+      {ext?.whatToAsk && ext.whatToAsk.length > 0 && (
+        <Section className="relative py-20 bg-ocean-50/40 border-y border-ocean-100/50 overflow-hidden">
+          <Container size="tight" className="relative">
+            <div className="flex items-center gap-3 mb-5">
+              <span className="h-px w-10 bg-brass-400/70" />
+              <Eyebrow>What to ask your utility</Eyebrow>
+            </div>
+            <h2 className="display text-display-md text-ocean-700 mb-3 text-balance leading-[1.05]">
+              Five questions for your next Consumer Confidence Report.
+            </h2>
+            <p className="text-lg text-ink/75 leading-relaxed mb-10 max-w-2xl">
+              Your utility is required to send you a Consumer Confidence
+              Report annually. Most are dense and procedural. These are the
+              questions worth following up on for {s.name} specifically.
+            </p>
+            <ol className="space-y-3 md:space-y-4">
+              {ext.whatToAsk.map((q, i) => (
+                <li
+                  key={i}
+                  className="relative rounded-2xl bg-white border border-line shadow-soft p-5 md:p-6"
+                >
+                  <div className="flex items-start gap-4">
+                    <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-cyan-50 text-cyan-700 flex-shrink-0 font-serif text-sm font-bold">
+                      {i + 1}
+                    </span>
+                    <p className="text-base md:text-lg text-ocean-700 leading-snug font-serif text-balance pt-1">
+                      {q}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+            <p className="mt-6 text-xs text-muted">
+              Most state regulators allow public records requests for the
+              underlying lab reports behind your CCR — your utility should be
+              able to provide them on request.
+            </p>
+          </Container>
+        </Section>
+      )}
+
+      {/* ============================================================ */}
+      {/* RECENT LEGISLATION                                           */}
+      {/* ============================================================ */}
+      {ext?.recentLegislation && ext.recentLegislation.length > 0 && (
+        <Section className="relative py-20 bg-canvas overflow-hidden">
+          <BodyAtmosphere variant="brass" />
+          <Container size="tight" className="relative">
+            <div className="flex items-center gap-3 mb-5">
+              <span className="h-px w-10 bg-brass-400/70" />
+              <Eyebrow>Recent state legislation</Eyebrow>
+            </div>
+            <h2 className="display text-display-md text-ocean-700 mb-3 text-balance leading-[1.05]">
+              What&apos;s changed in {s.name} water law.
+            </h2>
+            <p className="text-lg text-ink/75 leading-relaxed mb-10 max-w-2xl">
+              Drinking water regulation moves at the state level as much as
+              the federal level. Below are notable recent bills and
+              regulatory actions specific to {s.name}.
+            </p>
+            <ul className="space-y-3">
+              {ext.recentLegislation.map((law, i) => (
+                <li
+                  key={i}
+                  className="relative rounded-2xl bg-white border border-line shadow-soft p-5 md:p-6 flex items-start gap-4 overflow-hidden"
+                >
+                  <span className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-brass-300/0 via-brass-400 to-brass-300/0" />
+                  <div className="display text-2xl md:text-3xl text-ocean-700 font-light leading-none w-16 flex-shrink-0">
+                    {law.year}
+                  </div>
+                  <p className="text-[15px] md:text-base text-ink/85 leading-snug pt-1">
+                    {law.title}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </Container>
+        </Section>
+      )}
+
+      {/* ============================================================ */}
       {/* FILTER RECOMMENDATION                                        */}
       {/* ============================================================ */}
       {s.filterRecommendation && (
-        <Section className="relative py-16 md:py-20 bg-canvas overflow-hidden">
-          <BodyAtmosphere variant="mixed" />
+        <Section className="relative py-16 md:py-20 bg-ocean-50/40 border-y border-ocean-100/50 overflow-hidden">
           <Container size="tight" className="relative">
             <div className="relative rounded-3xl bg-gradient-to-br from-cyan-50 to-ocean-50/60 border border-cyan-100 p-8 md:p-12 overflow-hidden">
               <div className="flex items-center gap-3 mb-4">
