@@ -11,9 +11,21 @@ export const metadata = {
 };
 
 const TONES = [
-  "bg-white border-line",
-  "bg-cyan-50/60 border-cyan-100",
-  "bg-ocean-50/60 border-ocean-100",
+  {
+    bg: "bg-white border-line",
+    stripe: "from-cyan-300/0 via-cyan-400 to-cyan-300/0",
+    dot: "bg-cyan-400",
+  },
+  {
+    bg: "bg-cyan-50/60 border-cyan-100",
+    stripe: "from-cyan-300/0 via-cyan-500 to-cyan-300/0",
+    dot: "bg-cyan-500",
+  },
+  {
+    bg: "bg-ocean-50/60 border-ocean-100",
+    stripe: "from-brass-300/0 via-brass-400 to-brass-300/0",
+    dot: "bg-brass-400",
+  },
 ];
 
 export default function FactsPage() {
@@ -50,36 +62,66 @@ export default function FactsPage() {
         </Container>
       </section>
 
-      <Section className="relative py-16 bg-canvas overflow-hidden">
+      <Section
+        className="relative pt-12 md:pt-16 pb-20 overflow-hidden"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(11,61,92,0.04) 0%, rgba(240,246,251,0.55) 35%, rgba(240,246,251,0.65) 100%)",
+        }}
+      >
         <BodyAtmosphere variant="mixed" />
         <Container className="relative">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
             {FACTS.map((f, i) => {
               const src = SOURCES[f.sourceId];
+              const tone = TONES[i % TONES.length];
               return (
                 <article
                   key={i}
+                  id={`fact-${i + 1}`}
                   className={cn(
-                    "rounded-2xl border p-7 transition-all hover:shadow-soft",
-                    TONES[i % TONES.length]
+                    "group relative rounded-3xl border p-7 md:p-8 shadow-soft hover:shadow-lift hover:-translate-y-0.5 transition-all overflow-hidden",
+                    tone.bg
                   )}
                 >
-                  <div className="text-[10px] uppercase tracking-[0.18em] text-muted font-semibold mb-3">
-                    {f.category}
+                  <span
+                    className={cn(
+                      "absolute top-0 left-0 right-0 h-1 bg-gradient-to-r",
+                      tone.stripe
+                    )}
+                  />
+                  <span
+                    aria-hidden
+                    className="absolute -top-3 -right-2 font-serif text-[120px] leading-none text-ocean-700/[0.05] pointer-events-none select-none font-light"
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <div className="relative">
+                    <div className="flex items-center gap-2 mb-4">
+                      <span
+                        className={cn(
+                          "inline-block h-1.5 w-1.5 rounded-full",
+                          tone.dot
+                        )}
+                      />
+                      <div className="text-[10px] uppercase tracking-[0.22em] text-brass-500 font-bold">
+                        {f.category}
+                      </div>
+                    </div>
+                    <p className="font-serif text-lg md:text-xl text-ocean-700 leading-snug mb-6 text-balance">
+                      {f.fact}
+                    </p>
+                    {src && (
+                      <a
+                        href={src.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[11px] text-cyan-600 hover:text-cyan-700 hover:underline inline-flex items-center gap-1 leading-snug"
+                      >
+                        Source: {src.title} — {src.publisher}
+                      </a>
+                    )}
                   </div>
-                  <p className="font-serif text-lg text-ocean-700 leading-snug mb-5 text-balance">
-                    {f.fact}
-                  </p>
-                  {src && (
-                    <a
-                      href={src.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-xs text-cyan-600 hover:underline"
-                    >
-                      Source: {src.title} — {src.publisher}
-                    </a>
-                  )}
                 </article>
               );
             })}
