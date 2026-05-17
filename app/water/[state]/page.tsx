@@ -27,6 +27,7 @@ import { Container, Section, Eyebrow } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { BodyAtmosphere } from "@/components/water/BodyAtmosphere";
 import { ContaminantPillCard } from "@/components/water/ContaminantPillCard";
+import { ZipCodeHero } from "@/components/water/ZipCodeHero";
 import { STATES, getStateBySlug } from "@/lib/states";
 import { getStateExtendedBySlug } from "@/lib/states-extended";
 import { getContaminant } from "@/lib/contaminants";
@@ -116,6 +117,17 @@ export default function StatePage({
           <p className="text-xl md:text-2xl text-white/80 leading-relaxed font-serif italic max-w-3xl">
             {s.context}
           </p>
+
+          {/* In-hero ZIP CTA — primary above-the-fold action */}
+          <div className="mt-10">
+            <div className="rounded-3xl bg-white/95 backdrop-blur p-5 md:p-6 shadow-lift relative overflow-hidden">
+              <span className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brass-300/0 via-brass-400 to-brass-300/0" />
+              <div className="text-[10px] uppercase tracking-[0.22em] text-brass-500 font-bold mb-2">
+                Live {s.name} ZIP lookup
+              </div>
+              <ZipCodeHero />
+            </div>
+          </div>
 
           {/* State stats strip */}
           <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-px bg-white/10 rounded-2xl overflow-hidden border border-white/10">
