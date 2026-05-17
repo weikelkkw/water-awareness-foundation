@@ -63,10 +63,30 @@ create table if not exists newsletter_signups (
   zip text,
   source text default 'website',
   confirmed boolean default false,
+  unsubscribed_at timestamptz,
+  unsubscribe_token text unique default encode(gen_random_bytes(18), 'hex'),
+  last_digest_sent_at timestamptz,
   created_at timestamptz not null default now()
 );
 
 create index if not exists newsletter_email_idx on newsletter_signups(lower(email));
+create index if not exists newsletter_unsub_token_idx on newsletter_signups(unsubscribe_token);
+
+-- ----------------------------------------------------------------------------
+-- Digest send log (one row per email per issue) — for analytics + dedup
+-- ----------------------------------------------------------------------------
+create table if not exists digest_sends (
+  id uuid primary key default gen_random_uuid(),
+  issue_key text not null,        -- e.g. "2026-W21"
+  email text not null,
+  resend_id text,
+  status text not null,           -- 'sent' | 'failed'
+  error text,
+  sent_at timestamptz not null default now()
+);
+
+create index if not exists digest_sends_issue_idx on digest_sends(issue_key);
+create index if not exists digest_sends_email_idx on digest_sends(lower(email));
 
 -- ----------------------------------------------------------------------------
 -- Row-Level Security

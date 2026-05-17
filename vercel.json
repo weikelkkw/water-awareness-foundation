@@ -23,5 +23,11 @@
   "redirects": [
     { "source": "/learn/contaminants/lead", "destination": "/learn/contaminants/lead-in-drinking-water", "permanent": true },
     { "source": "/learn/contaminants/pfas", "destination": "/learn/contaminants/pfas-forever-chemicals", "permanent": true }
+  ],
+  "crons": [
+    {
+      "path": "/api/cron/send-digest",
+      "schedule": "0 13 * * 0"
+    }
   ]
 }
