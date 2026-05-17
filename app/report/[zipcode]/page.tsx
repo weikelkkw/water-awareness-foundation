@@ -482,49 +482,183 @@ function ActionRow({
 }
 
 function NoDataFallback({ zip }: { zip: string }) {
+  const guessedState = zipToState(zip);
   return (
     <>
-      <Section className="bg-ocean-fade pb-12">
-        <Container size="tight" className="text-center">
-          <Eyebrow className="mb-4">No data yet</Eyebrow>
-          <h1 className="display text-display-md text-ocean-700 mb-5 text-balance">
-            We&apos;re still building data for ZIP {zip}.
+      <section className="relative overflow-hidden bg-midnight text-white pt-20 md:pt-28 pb-16 md:pb-20">
+        <div className="absolute inset-0 pointer-events-none">
+          <div
+            className="absolute -top-1/4 left-1/4 w-[60vw] h-[60vw] max-w-[800px] max-h-[800px] rounded-full blur-3xl opacity-30"
+            style={{
+              background:
+                "radial-gradient(circle at center, rgba(0,180,216,0.5), transparent 60%)",
+            }}
+          />
+          <div className="absolute inset-0 bg-grid-faint opacity-[0.06]" />
+        </div>
+        <Container size="tight" className="relative">
+          <div className="flex items-center gap-3 mb-5">
+            <span className="h-px w-10 bg-brass-300" />
+            <Eyebrow className="text-brass-300">
+              ZIP {zip}
+              {guessedState && ` · ${guessedState.name}`}
+            </Eyebrow>
+          </div>
+          <h1 className="display text-display-lg text-white mb-5 text-balance leading-[1.02]">
+            Live utility data is
+            <em className="not-italic italic font-light text-cyan-300">
+              {" "}temporarily unavailable.
+            </em>
           </h1>
-          <p className="text-lg text-ink/75 leading-relaxed mb-8">
-            We couldn&apos;t find a public water system serving this ZIP in
-            our utility database. That doesn&apos;t necessarily mean anything
-            is wrong — small systems, private wells, and recently-connected
-            areas are sometimes slow to appear. Try a nearby ZIP, or sign up
-            below and we&apos;ll notify you when this area is indexed.
+          <p className="text-xl text-white/80 leading-relaxed font-serif italic max-w-2xl">
+            Our live EWG / EPA fetch for ZIP {zip} didn&apos;t return a
+            utility this time. That could mean rate-limiting on the upstream
+            data source, a very small system that hasn&apos;t been indexed,
+            or a private-well area. Try again in a few minutes — or use one
+            of the paths below for what we already have.
           </p>
-          <ZipCodeHero />
-          <div className="max-w-md mx-auto mt-12 text-left">
-            <NewsletterCapture />
+          <div className="mt-10 flex flex-wrap items-center gap-3">
+            <Link
+              href="/your-water-file"
+              className="inline-flex items-center gap-2 h-12 px-7 rounded-xl bg-brass-300 text-ocean-700 font-medium hover:bg-brass-400 transition-all shadow-soft text-[15px]"
+            >
+              Build a Water File <ArrowRight className="h-4 w-4" />
+            </Link>
+            {guessedState && (
+              <Link
+                href={`/water/${guessedState.slug}`}
+                className="inline-flex items-center gap-2 h-12 px-7 rounded-xl bg-white/[0.06] border border-white/15 text-white hover:bg-white/[0.10] hover:border-white/25 transition-all text-[15px] font-medium"
+              >
+                See the {guessedState.name} profile{" "}
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            )}
           </div>
         </Container>
-      </Section>
+      </section>
 
-      <Section className="py-16 bg-canvas">
-        <Container>
-          <div className="max-w-3xl">
+      <Section
+        className="relative pt-12 pb-20 overflow-hidden"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(11,61,92,0.04) 0%, rgba(240,246,251,0.55) 35%, rgba(240,246,251,0.65) 100%)",
+        }}
+      >
+        <Container size="tight" className="relative">
+          <div className="grid md:grid-cols-2 gap-5 md:gap-6 mb-10">
+            <div className="relative rounded-3xl bg-white border border-line p-7 md:p-8 shadow-soft overflow-hidden">
+              <span className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-300 via-cyan-400 to-cyan-300" />
+              <div className="text-[10px] uppercase tracking-[0.22em] text-brass-500 font-bold mb-2">
+                Try again
+              </div>
+              <h2 className="font-serif text-xl text-ocean-700 mb-3">
+                Run a different ZIP, or retry this one.
+              </h2>
+              <p className="text-[14px] text-ink/70 leading-relaxed mb-5">
+                Live lookups can fail under upstream rate-limiting. A retry
+                in a few minutes usually works.
+              </p>
+              <ZipCodeHero />
+            </div>
+            <div className="relative rounded-3xl bg-white border border-line p-7 md:p-8 shadow-soft overflow-hidden">
+              <span className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-brass-300 via-brass-400 to-brass-300" />
+              <div className="text-[10px] uppercase tracking-[0.22em] text-brass-500 font-bold mb-2">
+                We&apos;ll email when it&apos;s indexed
+              </div>
+              <h2 className="font-serif text-xl text-ocean-700 mb-3">
+                Get notified when ZIP {zip} appears.
+              </h2>
+              <p className="text-[14px] text-ink/70 leading-relaxed mb-5">
+                One email when the live data is available. No spam.
+              </p>
+              <NewsletterCapture />
+            </div>
+          </div>
+
+          <div className="mt-12">
             <Eyebrow className="mb-3">In the meantime</Eyebrow>
-            <h2 className="display text-3xl md:text-4xl text-ocean-700 mb-5 text-balance">
+            <h2 className="display text-3xl md:text-4xl text-ocean-700 mb-5 text-balance leading-tight">
               The contaminants worth understanding regardless of ZIP.
             </h2>
-            <p className="text-ink/75 leading-relaxed mb-8">
+            <p className="text-ink/75 leading-relaxed mb-8 max-w-2xl">
               These are the contaminants that account for the majority of
-              health-relevant exposure in U.S. tap water. The deep-dive pages
-              break each down with sources, health effects, regulatory limits,
-              and which filter types actually remove them.
+              health-relevant exposure in U.S. tap water. Each has a
+              deep-dive with sources, health effects, regulatory limits, and
+              which filter types actually remove them.
             </p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {CONTAMINANTS.slice(0, 6).map((c) => (
-              <ContaminantCard key={c.slug} contaminant={c} />
-            ))}
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+              {CONTAMINANTS.slice(0, 6).map((c) => (
+                <ContaminantCard key={c.slug} contaminant={c} />
+              ))}
+            </div>
           </div>
         </Container>
       </Section>
     </>
   );
+}
+
+// Best-effort ZIP → state mapping. Uses the first 3 digits (ZIP ZCTA prefix)
+// to map to the dominant state. Imperfect at state borders but useful for the
+// fallback page — tells the visitor what state water profile to read.
+function zipToState(zip: string): { slug: string; name: string } | null {
+  const prefix = zip.slice(0, 3);
+  const code = parseInt(prefix, 10);
+  if (Number.isNaN(code)) return null;
+  // Major prefix ranges per state (covers the bulk of routable ZIPs):
+  const ranges: { from: number; to: number; slug: string; name: string }[] = [
+    { from: 10, to: 27, slug: "massachusetts", name: "Massachusetts" },
+    { from: 28, to: 29, slug: "rhode-island", name: "Rhode Island" },
+    { from: 30, to: 38, slug: "new-hampshire", name: "New Hampshire" },
+    { from: 39, to: 49, slug: "maine", name: "Maine" },
+    { from: 50, to: 59, slug: "vermont", name: "Vermont" },
+    { from: 60, to: 69, slug: "connecticut", name: "Connecticut" },
+    { from: 70, to: 89, slug: "new-jersey", name: "New Jersey" },
+    { from: 100, to: 149, slug: "new-york", name: "New York" },
+    { from: 150, to: 196, slug: "pennsylvania", name: "Pennsylvania" },
+    { from: 197, to: 199, slug: "delaware", name: "Delaware" },
+    { from: 200, to: 205, slug: "maryland", name: "Maryland" }, // DC overlaps
+    { from: 206, to: 219, slug: "maryland", name: "Maryland" },
+    { from: 220, to: 246, slug: "virginia", name: "Virginia" },
+    { from: 247, to: 268, slug: "west-virginia", name: "West Virginia" },
+    { from: 270, to: 289, slug: "north-carolina", name: "North Carolina" },
+    { from: 290, to: 299, slug: "south-carolina", name: "South Carolina" },
+    { from: 300, to: 319, slug: "georgia", name: "Georgia" },
+    { from: 320, to: 349, slug: "florida", name: "Florida" },
+    { from: 350, to: 369, slug: "alabama", name: "Alabama" },
+    { from: 370, to: 385, slug: "tennessee", name: "Tennessee" },
+    { from: 386, to: 397, slug: "mississippi", name: "Mississippi" },
+    { from: 400, to: 427, slug: "kentucky", name: "Kentucky" },
+    { from: 430, to: 458, slug: "ohio", name: "Ohio" },
+    { from: 460, to: 479, slug: "indiana", name: "Indiana" },
+    { from: 480, to: 499, slug: "michigan", name: "Michigan" },
+    { from: 500, to: 528, slug: "iowa", name: "Iowa" },
+    { from: 530, to: 549, slug: "wisconsin", name: "Wisconsin" },
+    { from: 550, to: 567, slug: "minnesota", name: "Minnesota" },
+    { from: 570, to: 577, slug: "south-dakota", name: "South Dakota" },
+    { from: 580, to: 588, slug: "north-dakota", name: "North Dakota" },
+    { from: 590, to: 599, slug: "montana", name: "Montana" },
+    { from: 600, to: 629, slug: "illinois", name: "Illinois" },
+    { from: 630, to: 658, slug: "missouri", name: "Missouri" },
+    { from: 660, to: 679, slug: "kansas", name: "Kansas" },
+    { from: 680, to: 693, slug: "nebraska", name: "Nebraska" },
+    { from: 700, to: 714, slug: "louisiana", name: "Louisiana" },
+    { from: 716, to: 729, slug: "arkansas", name: "Arkansas" },
+    { from: 730, to: 749, slug: "oklahoma", name: "Oklahoma" },
+    { from: 750, to: 799, slug: "texas", name: "Texas" },
+    { from: 800, to: 816, slug: "colorado", name: "Colorado" },
+    { from: 820, to: 831, slug: "wyoming", name: "Wyoming" },
+    { from: 832, to: 838, slug: "idaho", name: "Idaho" },
+    { from: 840, to: 847, slug: "utah", name: "Utah" },
+    { from: 850, to: 865, slug: "arizona", name: "Arizona" },
+    { from: 870, to: 884, slug: "new-mexico", name: "New Mexico" },
+    { from: 889, to: 898, slug: "nevada", name: "Nevada" },
+    { from: 900, to: 961, slug: "california", name: "California" },
+    { from: 967, to: 968, slug: "hawaii", name: "Hawaii" },
+    { from: 970, to: 979, slug: "oregon", name: "Oregon" },
+    { from: 980, to: 994, slug: "washington", name: "Washington" },
+    { from: 995, to: 999, slug: "alaska", name: "Alaska" },
+  ];
+  const hit = ranges.find((r) => code >= r.from && code <= r.to);
+  return hit ? { slug: hit.slug, name: hit.name } : null;
 }

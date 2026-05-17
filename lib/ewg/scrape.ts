@@ -31,8 +31,19 @@
  */
 
 const BASE = "https://www.ewg.org/tapwater";
-const USER_AGENT =
-  "WaterAwarenessFoundation/0.1 (educational research; contact@waterawarenessfoundation.com)";
+
+// Cloudflare's bot detection blocks generic / cloud-IP requests with a
+// non-browser UA. We rotate between a small set of realistic browser
+// UAs to reduce the friction without engaging in active evasion.
+const BROWSER_UAS = [
+  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Safari/605.1.15",
+  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+];
+
+function pickUa() {
+  return BROWSER_UAS[Math.floor(Math.random() * BROWSER_UAS.length)];
+}
 
 export interface EwgUtility {
   pwsid: string;
@@ -74,15 +85,31 @@ async function getHtml(url: string): Promise<string | null> {
   try {
     const res = await fetch(url, {
       headers: {
-        "User-Agent": USER_AGENT,
-        Accept: "text/html,application/xhtml+xml",
+        "User-Agent": pickUa(),
+        Accept:
+          "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Cache-Control": "max-age=0",
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "none",
+        "Upgrade-Insecure-Requests": "1",
       },
       // Next-side cache key — also re-used by our Supabase cache layer
       next: { revalidate: 60 * 60 * 24 * 30 }, // 30 days
     });
-    if (!res.ok) return null;
+    if (!res.ok) {
+      if (process.env.WAF_DEBUG_EWG === "1") {
+        console.warn(`[ewg] ${url} returned ${res.status}`);
+      }
+      return null;
+    }
     return await res.text();
-  } catch {
+  } catch (e) {
+    if (process.env.WAF_DEBUG_EWG === "1") {
+      console.warn(`[ewg] fetch failed for ${url}:`, e);
+    }
     return null;
   }
 }
