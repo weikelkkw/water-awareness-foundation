@@ -233,7 +233,10 @@ export async function saveNewsletterSignup(email: string, zip?: string) {
   }
   const { error } = await supabaseAdmin
     .from("newsletter_signups")
-    .upsert({ email: email.toLowerCase(), zip, source: "website" }, { onConflict: "email" });
+    .upsert(
+      { email: email.toLowerCase(), zip, source: "website", confirmed: true },
+      { onConflict: "email" }
+    );
   if (error) return { ok: false, persisted: false, error: error.message };
   return { ok: true, persisted: true };
 }
