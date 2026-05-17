@@ -1,6 +1,7 @@
 import { supabaseAdmin } from "./supabase";
 import { lookupZip, type WaterSystem, type SdwisViolation } from "@/lib/epa/sdwis";
 import { lookupZipEwg, type EwgSystemReport } from "@/lib/ewg/scrape";
+import { getSeededReport } from "@/lib/ewg/seed";
 
 const CACHE_TTL_DAYS = 30;
 
@@ -28,9 +29,12 @@ export interface ZipReport {
  *  Either path produces a `ZipReport`. The `source` field tells the UI
  *  how to label provenance. */
 export async function getZipReport(zip: string): Promise<ZipReport | null> {
-  // Always try EWG first — it solves the ZIP→PWSID problem AND gives us
-  // real contaminant levels that SDWIS doesn't expose.
-  const ewg = await lookupZipEwg(zip).catch(() => null);
+  // 1. Check the static seed cache first. Pre-fetched ZIPs render
+  //    instantly without any upstream calls — this is what makes the
+  //    site work in production where Cloudflare blocks Vercel's IPs.
+  const seeded = getSeededReport(zip);
+  // 2. Otherwise attempt the live EWG fetch (works from non-blocked IPs).
+  const ewg = seeded ?? (await lookupZipEwg(zip).catch(() => null));
 
   if (ewg) {
     // Synthesize a WaterSystem record from EWG's utility metadata, then
