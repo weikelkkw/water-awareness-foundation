@@ -19,6 +19,13 @@ export function ZipCodeHero() {
       return;
     }
     setErr(null);
+    // Plausible custom event (no-op when Plausible isn't loaded)
+    if (typeof window !== "undefined") {
+      const w = window as unknown as {
+        plausible?: (event: string, opts?: { props?: Record<string, string> }) => void;
+      };
+      w.plausible?.("ZIP Report Submit", { props: { zip: z } });
+    }
     startTransition(() => {
       router.push(`/report/${z}`);
     });

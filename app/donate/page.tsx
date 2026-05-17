@@ -331,8 +331,6 @@ function GiveCard({
       ? "bg-brass-50 text-brass-600"
       : "bg-cyan-50 text-cyan-600";
 
-  const Wrapper = isLink ? "a" : "a";
-
   return (
     <div className="relative rounded-3xl bg-white border border-line p-8 md:p-10 shadow-lift overflow-hidden">
       <span className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${stripe}`} />
@@ -346,15 +344,16 @@ function GiveCard({
         {title}
       </h3>
       <p className="text-ink/75 leading-relaxed mb-7 text-[15px]">{detail}</p>
-      <Wrapper
+      <a
         href={href}
         target={isLink ? "_blank" : undefined}
         rel={isLink ? "noopener noreferrer" : undefined}
+        className={`plausible-event-name=Donate+Click plausible-event-tier=${eyebrow.replace(/\s+/g, "+")}`}
       >
         <Button size="md" className="w-full sm:w-auto">
           {cta}
         </Button>
-      </Wrapper>
+      </a>
     </div>
   );
 }

@@ -35,6 +35,13 @@ export function NewsletterCapture({ variant = "light", pitch }: Props) {
       setStatus("ok");
       setMsg("You're in. Check your inbox for a confirmation.");
       setEmail("");
+      // Plausible custom event (no-op when Plausible not loaded)
+      if (typeof window !== "undefined") {
+        const w = window as unknown as {
+          plausible?: (event: string, opts?: { props?: Record<string, string> }) => void;
+        };
+        w.plausible?.("Newsletter Signup", { props: { variant } });
+      }
     } catch {
       setStatus("err");
       setMsg("Something went wrong. Please try again.");

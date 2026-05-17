@@ -61,6 +61,19 @@ export function WaterFileIntake() {
     if (homeAge) params.set("age", homeAge);
     if (household.size > 0) params.set("h", Array.from(household).join(","));
     if (concerns.size > 0) params.set("c", Array.from(concerns).join(","));
+    // Plausible custom event
+    if (typeof window !== "undefined") {
+      const w = window as unknown as {
+        plausible?: (event: string, opts?: { props?: Record<string, string> }) => void;
+      };
+      w.plausible?.("Water File Generate", {
+        props: {
+          homeAge: homeAge ?? "unspecified",
+          householdCount: String(household.size),
+          concernsCount: String(concerns.size),
+        },
+      });
+    }
     router.push(`/your-water-file/${zip}?${params.toString()}`);
   };
 
