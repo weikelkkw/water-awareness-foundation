@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { ArrowUpRight, MapPin } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { Container, Section, Eyebrow } from "@/components/ui/Container";
 import { BodyAtmosphere } from "@/components/water/BodyAtmosphere";
 import { USMap } from "@/components/water/USMap";
-import { STATES } from "@/lib/states";
+import { STATES, type StateProfile } from "@/lib/states";
 
 export const metadata = {
   title: "Browse by state",
@@ -14,6 +14,67 @@ export const metadata = {
 const TOTAL_POP = STATES.reduce((sum, s) => sum + s.population, 0);
 const TOTAL_UTILS = STATES.reduce((sum, s) => sum + s.utilityCount, 0);
 const TOTAL_FLAGSHIP = STATES.filter((s) => s.flagshipStory).length;
+
+const REGION_TAGLINES: Record<string, string> = {
+  Northeast:
+    "Aging colonial-era service lines, NYC's unfiltered Catskill watershed, and the original Saint-Gobain PFAS communities that put the chemical class on the national map.",
+  Midwest:
+    "The Great Lakes and Mississippi corridor share the regulatory stage with Ogallala depletion and the most-cited U.S. water crisis — Flint.",
+  South:
+    "Florida's Floridan aquifer and Texas's Edwards Aquifer at the geological extremes; Chemours Cape Fear PFAS, Cancer Alley refineries, and Jackson's emergency reform in between.",
+  West:
+    "Megadrought reshapes everything from Phoenix to the Colorado River compact. Military firefighting-foam PFAS in Colorado, Utah, Washington, New Mexico — plus Hawaii's volcanic exception to almost every U.S. water pattern.",
+};
+
+type ConcernTier = "ok" | "elevated" | "high" | "severe";
+
+interface ConcernStyle {
+  stripe: string;
+  wash: string;
+  chipText: string;
+  dotBg: string;
+  label: string;
+}
+
+const CONCERN_STYLE: Record<ConcernTier, ConcernStyle> = {
+  ok: {
+    stripe: "from-cyan-300/0 via-cyan-400 to-cyan-300/0",
+    wash: "from-cyan-50/50 via-white to-white",
+    chipText: "text-cyan-700",
+    dotBg: "bg-cyan-400",
+    label: "Moderate concern",
+  },
+  elevated: {
+    stripe: "from-amber-300/0 via-amber-400 to-amber-300/0",
+    wash: "from-amber-50/50 via-white to-white",
+    chipText: "text-amber-600",
+    dotBg: "bg-amber-400",
+    label: "Elevated concern",
+  },
+  high: {
+    stripe: "from-orange-300/0 via-orange-500 to-orange-300/0",
+    wash: "from-orange-50/40 via-white to-white",
+    chipText: "text-orange-600",
+    dotBg: "bg-orange-500",
+    label: "High concern",
+  },
+  severe: {
+    stripe: "from-red-400/0 via-red-500 to-red-400/0",
+    wash: "from-red-50/40 via-white to-white",
+    chipText: "text-red-600",
+    dotBg: "bg-red-500",
+    label: "Severe concern",
+  },
+};
+
+function concernTier(state: StateProfile): ConcernTier {
+  const count = state.topContaminants.length;
+  const flagship = !!state.flagshipStory;
+  if (count >= 5 || (count >= 4 && flagship)) return "severe";
+  if (count >= 4 || (count >= 3 && flagship)) return "high";
+  if (count >= 3) return "elevated";
+  return "ok";
+}
 
 const REGIONS: { label: string; states: string[] }[] = [
   {
@@ -183,7 +244,7 @@ export default function WaterIndexPage() {
           <Section
             key={region.label}
             className={
-              "relative py-16 overflow-hidden " +
+              "relative py-20 overflow-hidden " +
               (tinted
                 ? "bg-ocean-50/40 border-y border-ocean-100/50"
                 : "bg-canvas")
@@ -191,54 +252,127 @@ export default function WaterIndexPage() {
           >
             {!tinted && <BodyAtmosphere variant="mixed" />}
             <Container className="relative">
-              <div className="flex items-center gap-3 mb-6">
-                <span className="h-px w-10 bg-brass-400/70" />
-                <Eyebrow>{region.label}</Eyebrow>
-                <span className="text-xs text-muted font-mono">
-                  {String(region.states.length).padStart(2, "0")} states
-                </span>
+              <div className="max-w-3xl mb-12">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="h-px w-10 bg-brass-400/70" />
+                  <Eyebrow>{region.label}</Eyebrow>
+                  <span className="text-xs text-muted font-mono">
+                    {String(region.states.length).padStart(2, "0")} states
+                  </span>
+                </div>
+                <h2 className="display text-display-md text-ocean-700 mb-4 text-balance leading-[1.05]">
+                  The {region.label.toLowerCase()}.
+                </h2>
+                <p className="text-lg text-ink/75 leading-relaxed">
+                  {REGION_TAGLINES[region.label]}
+                </p>
               </div>
-              <h2 className="display text-display-md text-ocean-700 mb-10 text-balance leading-[1.05]">
-                The {region.label.toLowerCase()}.
-              </h2>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
-                {region.states.map((slug) => {
+                {region.states.map((slug, stateIdx) => {
                   const s = bySlug.get(slug);
                   if (!s) return null;
+                  const tier = concernTier(s);
+                  const style = CONCERN_STYLE[tier];
                   return (
                     <Link
                       key={slug}
                       href={`/water/${slug}`}
-                      className="group relative block rounded-2xl border border-line bg-white p-6 shadow-soft hover:shadow-lift hover:border-cyan-300/60 transition-all overflow-hidden"
+                      className="group relative block rounded-3xl border border-line bg-white shadow-soft hover:shadow-lift hover:border-cyan-300/60 hover:-translate-y-0.5 transition-all duration-300 overflow-hidden"
                     >
-                      <span className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-300/0 via-cyan-400 to-cyan-300/0 opacity-0 group-hover:opacity-100 transition-opacity" />
-                      <div className="flex items-start justify-between gap-3 mb-3">
-                        <div>
-                          <div className="text-[10px] uppercase tracking-[0.22em] text-brass-500 font-bold mb-1">
-                            {s.abbreviation}
+                      {/* Concern stripe — always visible */}
+                      <span
+                        className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${style.stripe} opacity-90`}
+                      />
+                      {/* Subtle concern wash that intensifies on hover */}
+                      <span
+                        className={`absolute inset-0 bg-gradient-to-br ${style.wash} opacity-30 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none`}
+                      />
+                      {/* Serial-number watermark — magazine-cover feel */}
+                      <span
+                        aria-hidden
+                        className="absolute -top-3 -right-1 font-serif text-[140px] leading-none text-ocean-700/[0.04] pointer-events-none select-none font-light"
+                      >
+                        {String(stateIdx + 1).padStart(2, "0")}
+                      </span>
+
+                      <div className="relative p-7 md:p-8">
+                        {/* Header row: big abbreviation + flagship badge + arrow */}
+                        <div className="flex items-start justify-between gap-3 mb-5">
+                          <div className="flex items-center gap-3 flex-wrap">
+                            <div className="display text-5xl md:text-6xl text-ocean-700 font-light leading-none">
+                              {s.abbreviation}
+                            </div>
+                            {s.flagshipStory && (
+                              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-red-50 border border-red-100 text-[9px] uppercase tracking-[0.22em] text-red-600 font-bold">
+                                <span className="relative flex h-1.5 w-1.5">
+                                  <span className="absolute inline-flex h-full w-full rounded-full bg-red-500 animate-ping opacity-75" />
+                                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-red-500" />
+                                </span>
+                                Flagship
+                              </span>
+                            )}
                           </div>
-                          <h3 className="font-serif text-2xl text-ocean-700 group-hover:text-cyan-600 transition-colors leading-tight">
-                            {s.name}
-                          </h3>
+                          <ArrowUpRight
+                            className="h-4 w-4 text-muted group-hover:text-cyan-600 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all flex-shrink-0 mt-2"
+                            strokeWidth={2.5}
+                          />
                         </div>
-                        <ArrowUpRight
-                          className="h-4 w-4 text-muted group-hover:text-cyan-600 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all flex-shrink-0 mt-1"
-                          strokeWidth={2.5}
-                        />
-                      </div>
-                      <div className="flex items-center gap-1.5 text-xs text-muted mb-3">
-                        <MapPin className="h-3 w-3" />
-                        {s.majorCities[0]}
-                      </div>
-                      <div className="flex flex-wrap gap-1.5">
-                        {s.topContaminants.slice(0, 3).map((c) => (
-                          <span
-                            key={c}
-                            className="inline-flex items-center px-2 py-0.5 rounded-full bg-canvas border border-line text-[10px] uppercase tracking-[0.18em] text-ink/65 font-bold"
-                          >
-                            {c.replace("-", " ")}
-                          </span>
-                        ))}
+
+                        {/* State name */}
+                        <h3 className="font-serif text-2xl md:text-3xl text-ocean-700 group-hover:text-cyan-600 transition-colors leading-tight mb-2 text-balance">
+                          {s.name}
+                        </h3>
+
+                        {/* Major cities — italic serif */}
+                        <p className="text-[13px] text-muted italic font-serif mb-6 leading-snug">
+                          {s.majorCities.slice(0, 3).join(" · ")}
+                        </p>
+
+                        {/* Stats row */}
+                        <div className="grid grid-cols-2 gap-3 mb-6 pb-5 border-b border-line/70">
+                          <div>
+                            <div className="text-[9px] uppercase tracking-[0.22em] text-muted font-bold mb-1.5">
+                              Served
+                            </div>
+                            <div className="font-serif text-lg text-ocean-700 leading-none">
+                              {s.servedPopulation
+                                ? `${(s.servedPopulation / 1_000_000).toFixed(1)}M`
+                                : "—"}
+                            </div>
+                          </div>
+                          <div>
+                            <div className="text-[9px] uppercase tracking-[0.22em] text-muted font-bold mb-1.5">
+                              Systems
+                            </div>
+                            <div className="font-serif text-lg text-ocean-700 leading-none">
+                              {s.utilityCount.toLocaleString()}
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Concern indicator + top contaminants */}
+                        <div>
+                          <div className="flex items-center gap-2 mb-2.5">
+                            <span
+                              className={`inline-block h-1.5 w-1.5 rounded-full ${style.dotBg}`}
+                            />
+                            <span
+                              className={`text-[10px] uppercase tracking-[0.22em] font-bold ${style.chipText}`}
+                            >
+                              {style.label}
+                            </span>
+                          </div>
+                          <div className="flex flex-wrap gap-1.5">
+                            {s.topContaminants.slice(0, 3).map((c) => (
+                              <span
+                                key={c}
+                                className="inline-flex items-center px-2 py-0.5 rounded-md bg-white border border-line text-[10px] uppercase tracking-[0.15em] text-ink/65 font-bold"
+                              >
+                                {c.replace("-", " ")}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
                       </div>
                     </Link>
                   );
